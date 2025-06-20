@@ -37,24 +37,24 @@ func (bd *BasicData) V2MerchantBasicdataQuery() (res *V2MerchantBasicdataQueryRe
 type V2MerchantBasicdataQueryResponse struct {
 	Data struct {
 		AgreementInfoList     common.StringObject[[]AgreementInfoList]   `json:"agreement_info_list"` //协议信息
-		AreaId                string                                     `json:"area_id"`
-		BalancePayFlag        string                                     `json:"balance_pay_flag"`
+		AreaId                string                                     `json:"area_id"`             //银行所在市
+		BalancePayFlag        string                                     `json:"balance_pay_flag"`    //是否开通余额支付	String	1	N	1:开通 0:未开通，为空未配置(未开通)；示例值：1
 		BankBigAmtPayConfig   common.StringObject[BankBigAmtPayConfig]   `json:"bank_big_amt_pay_config"`
 		BeneficiaryInfoList   common.StringObject[[]BeneficiaryInfoList] `json:"beneficiary_info_list"`
-		BusiType              string                                     `json:"busi_type"`
+		BusiType              string                                     `json:"busi_type"` //经营类型	String	1	N	1:实体 2:虚拟，企业商户有值；示例值：1
 		ContactEmail          string                                     `json:"contact_email"`
 		ContactMobileNo       string                                     `json:"contact_mobile_no"`
 		ContactName           string                                     `json:"contact_name"`
 		CrossBorderPayConfig  string                                     `json:"cross_border_pay_config"`
-		CustType              string                                     `json:"cust_type"`
-		DelayFlag             string                                     `json:"delay_flag"`
+		CustType              string                                     `json:"cust_type"`  //商户类型	String	1	Y	1：企业 2：个人 ；示例值：1
+		DelayFlag             string                                     `json:"delay_flag"` //是否开通延迟入账	String	1	N	N：否 Y：是，为空则为否；示例值：Y
 		DetailAddr            string                                     `json:"detail_addr"`
 		DistrictId            string                                     `json:"district_id"`
-		EntType               string                                     `json:"ent_type"`
+		EntType               string                                     `json:"ent_type"` //商户种类	String	1	Y	1：政府机构、2：国营企业、3：私营企业、4：外资企业、5：个体工商户、6：其他组织、7：事业单位、9：业主委员会；
 		EnterFeeFlag          string                                     `json:"enter_fee_flag"`
 		ExtMerId              string                                     `json:"ext_mer_id"`
 		FileInfoList          common.StringObject[[]FileInfoList]        `json:"file_info_list"`
-		ForcedDelayFlag       string                                     `json:"forced_delay_flag"`
+		ForcedDelayFlag       string                                     `json:"forced_delay_flag"` //商户开通强制延迟标记	String		N	Y:开通,N:关闭；示例值：N
 		FundCollectionFlag    string                                     `json:"fund_collection_flag"`
 		HalfPayHostFlag       string                                     `json:"half_pay_host_flag"`
 		HeadOfficeFlag        string                                     `json:"head_office_flag"`
@@ -68,13 +68,13 @@ type V2MerchantBasicdataQueryResponse struct {
 		LegalName             string                                     `json:"legal_name"`
 		LegalNationality      string                                     `json:"legal_nationality"`
 		LicenseBeginDate      string                                     `json:"license_begin_date"`
-		LicenseCode           string                                     `json:"license_code"`
+		LicenseCode           string                                     `json:"license_code"` //营业执照编号	String	18	N	工商营业执照编号，示例值：92650109MA79R8E308
 		LicenseEndDate        string                                     `json:"license_end_date"`
-		LicenseType           string                                     `json:"license_type"`
-		LicenseValidityType   string                                     `json:"license_validity_type"`
+		LicenseType           string                                     `json:"license_type"`          //证照类型	String	32	N	参见机构证照类型说明； 示例值：NATIONAL_LEGAL
+		LicenseValidityType   string                                     `json:"license_validity_type"` //证照有效期类型	String	1	N	企业类商户有值，1:长期有效 0:非长期有效；示例值：0
 		LoginName             string                                     `json:"login_name"`
-		Mcc                   string                                     `json:"mcc"`
-		MerEnName             string                                     `json:"mer_en_name"`
+		Mcc                   string                                     `json:"mcc"`         //所属行业（MCC）	String	7	N	银联MCC编码，企业商户有值；示例值：5411
+		MerEnName             string                                     `json:"mer_en_name"` //商户英文名称
 		MerIcp                string                                     `json:"mer_icp"`
 		MerLevel              string                                     `json:"mer_level"`
 		MerStat               string                                     `json:"mer_stat"`
@@ -85,13 +85,13 @@ type V2MerchantBasicdataQueryResponse struct {
 		OnlineMediaInfo       common.StringObject[[]OnlineMediaInfo]     `json:"online_media_info"`
 		OnlineRefund          string                                     `json:"online_refund"`
 		OpenLicenceNo         string                                     `json:"open_licence_no"`
-		OutFeeFlag            string                                     `json:"out_fee_flag"`
+		OutFeeFlag            string                                     `json:"out_fee_flag"` //交易手续费外扣标记	String	1	N	1：外扣，2：内扣；（默认2内扣）；示例值：2
 		OutOrderFundsMerge    string                                     `json:"out_order_funds_merge"`
 		ParentHuifuId         string                                     `json:"parent_huifu_id"`
 		PlatformRefund        string                                     `json:"platform_refund"`
 		PreAuthorizationFlag  string                                     `json:"pre_authorization_flag"`
 		ProductId             string                                     `json:"product_id"`
-		ProvId                string                                     `json:"prov_id"`
+		ProvId                string                                     `json:"prov_id"` //银行所在省
 		QryAliConfList        common.StringObject[[]QryAliConfList]      `json:"qry_ali_conf_list"`
 		QryBalancePayConfig   common.StringObject[QryBalancePayConfig]   `json:"qry_balance_pay_config"`
 		QryBankCardConf       common.StringObject[QryBankCardConf]       `json:"qry_bank_card_conf"`
@@ -100,19 +100,19 @@ type V2MerchantBasicdataQueryResponse struct {
 		QryUnionConf          common.StringObject[QryUnionConf]          `json:"qry_union_conf"`
 		QryWxConfList         common.StringObject[[]QryWxConfList]       `json:"qry_wx_conf_list"`
 		QuickFlag             string                                     `json:"quick_flag"`
-		ReceiptName           string                                     `json:"receipt_name"`
+		ReceiptName           string                                     `json:"receipt_name"` //小票名称
 		ReconRespAddr         string                                     `json:"recon_resp_addr"`
-		RegAreaId             string                                     `json:"reg_area_id"`
-		RegDetail             string                                     `json:"reg_detail"`
-		RegDistrictId         string                                     `json:"reg_district_id"`
+		RegAreaId             string                                     `json:"reg_area_id"`     //注册市
+		RegDetail             string                                     `json:"reg_detail"`      // 册详细地址	String	256	N	与证照保持一致；
+		RegDistrictId         string                                     `json:"reg_district_id"` //注册区
 		RegName               string                                     `json:"reg_name"`
-		RegProvId             string                                     `json:"reg_prov_id"`
-		Remarks               string                                     `json:"remarks"`
+		RegProvId             string                                     `json:"reg_prov_id"` //注册省	String	6	N	参考地区码；示例值：310000；与证照保持一致
+		Remarks               string                                     `json:"remarks"`     //备注
 		RespCode              string                                     `json:"resp_code"`
 		RespDesc              string                                     `json:"resp_desc"`
 		ServicePhone          string                                     `json:"service_phone"`
 		ShareHolderInfoList   common.StringObject[[]ShareHolderInfoList] `json:"share_holder_info_list"`
-		ShortName             string                                     `json:"short_name"`
+		ShortName             string                                     `json:"short_name"` //商户简称
 		SignUserInfoList      common.StringObject[[]SignUserInfoList]    `json:"sign_user_info_list"`
 		SmsSendFlag           string                                     `json:"sms_send_flag"`
 		SupportRevoke         string                                     `json:"support_revoke"`
