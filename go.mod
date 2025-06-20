@@ -1,4 +1,4 @@
-module ktpay
+module github.com/sleep-go/huifu-pay
 
 go 1.22
 

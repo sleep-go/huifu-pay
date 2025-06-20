@@ -1,23 +1,26 @@
-package user
+package merchant
 
 import (
 	"encoding/json"
-	"ktpay/common"
 
 	"github.com/huifurepo/bspay-go-sdk/BsPaySdk"
 	"github.com/huifurepo/bspay-go-sdk/ut/tool"
+	"github.com/sleep-go/huifu-pay/common"
 )
 
 type BasicData struct {
 	*common.HuifuPay
 }
 
+func NewBasicData(huifuPay *common.HuifuPay) *BasicData {
+	return &BasicData{HuifuPay: huifuPay}
+}
+
 func (bd *BasicData) V2MerchantBasicdataQueryRequest() (*V2MerchantBasicdataQueryResponse, string, error) {
 	resp, err := bd.HuifuPay.BsPay.V2MerchantBasicdataQueryRequest(BsPaySdk.V2MerchantBasicdataQueryRequest{
-		ReqSeqId:    tool.GetReqSeqId(),
-		ReqDate:     tool.GetCurrentDate(),
-		HuifuId:     bd.HuifuPay.BsPay.Msc.SysId,
-		ExtendInfos: nil,
+		ReqSeqId: tool.GetReqSeqId(),
+		ReqDate:  tool.GetCurrentDate(),
+		HuifuId:  bd.HuifuPay.BsPay.Msc.SysId,
 	})
 	var res V2MerchantBasicdataQueryResponse
 	if err != nil {
