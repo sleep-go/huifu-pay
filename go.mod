@@ -9,8 +9,6 @@ require (
 
 require (
 	github.com/fatih/structs v1.1.0 // indirect
-	github.com/go-viper/mapstructure/v2 v2.3.0 // indirect
-	golang.org/x/exp v0.0.0-20221208152030-732eee02a75a // indirect
 	golang.org/x/text v0.9.0 // indirect
 
 )

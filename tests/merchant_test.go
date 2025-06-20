@@ -18,13 +18,13 @@ func init() {
 	bd = merchant.NewBasicData(huifuPay)
 }
 func TestV2MerchantBasicdataQueryRequest(t *testing.T) {
-	response, raw, err := bd.V2MerchantBasicdataQueryRequest()
+	response, raw, err := bd.V2MerchantBasicdataQuery()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	fileutil.WriteStringToFile("./1.json", raw, false)
-	for _, info := range response.Data.QryWxConfList.Decode() {
+	for _, info := range response.Data.AgreementInfoList.Decode() {
 		fmt.Printf("======info=======\n%+v\n", info)
 	}
 }

@@ -16,13 +16,13 @@ func NewBasicData(huifuPay *common.HuifuPay) *BasicData {
 	return &BasicData{HuifuPay: huifuPay}
 }
 
-func (bd *BasicData) V2MerchantBasicdataQueryRequest() (*V2MerchantBasicdataQueryResponse, string, error) {
+// V2MerchantBasicdataQuery 商户详细信息查询
+func (bd *BasicData) V2MerchantBasicdataQuery() (res *V2MerchantBasicdataQueryResponse, raw string, err error) {
 	resp, err := bd.HuifuPay.BsPay.V2MerchantBasicdataQueryRequest(BsPaySdk.V2MerchantBasicdataQueryRequest{
 		ReqSeqId: tool.GetReqSeqId(),
 		ReqDate:  tool.GetCurrentDate(),
 		HuifuId:  bd.HuifuPay.BsPay.Msc.SysId,
 	})
-	var res V2MerchantBasicdataQueryResponse
 	if err != nil {
 		return nil, "", err
 	}
@@ -31,110 +31,98 @@ func (bd *BasicData) V2MerchantBasicdataQueryRequest() (*V2MerchantBasicdataQuer
 	if err != nil {
 		return nil, "", err
 	}
-	return &res, string(marshal), nil
-}
-
-type BaseObj[T any] string
-
-func (o BaseObj[T]) Decode() T {
-	var res T
-	_ = json.Unmarshal([]byte(o), &res)
-	return res
-}
-
-type Objects[T any] interface {
-	Decode() T
+	return res, string(marshal), nil
 }
 
 type V2MerchantBasicdataQueryResponse struct {
 	Data struct {
-		AgreementInfoList     BaseObj[[]AgreementInfoList]   `json:"agreement_info_list"`
-		AreaId                string                         `json:"area_id"`
-		BalancePayFlag        string                         `json:"balance_pay_flag"`
-		BankBigAmtPayConfig   BaseObj[BankBigAmtPayConfig]   `json:"bank_big_amt_pay_config"`
-		BeneficiaryInfoList   BaseObj[[]BeneficiaryInfoList] `json:"beneficiary_info_list"`
-		BusiType              string                         `json:"busi_type"`
-		ContactEmail          string                         `json:"contact_email"`
-		ContactMobileNo       string                         `json:"contact_mobile_no"`
-		ContactName           string                         `json:"contact_name"`
-		CrossBorderPayConfig  string                         `json:"cross_border_pay_config"`
-		CustType              string                         `json:"cust_type"`
-		DelayFlag             string                         `json:"delay_flag"`
-		DetailAddr            string                         `json:"detail_addr"`
-		DistrictId            string                         `json:"district_id"`
-		EntType               string                         `json:"ent_type"`
-		EnterFeeFlag          string                         `json:"enter_fee_flag"`
-		ExtMerId              string                         `json:"ext_mer_id"`
-		FileInfoList          BaseObj[[]FileInfoList]        `json:"file_info_list"`
-		ForcedDelayFlag       string                         `json:"forced_delay_flag"`
-		FundCollectionFlag    string                         `json:"fund_collection_flag"`
-		HalfPayHostFlag       string                         `json:"half_pay_host_flag"`
-		HeadOfficeFlag        string                         `json:"head_office_flag"`
-		LargeAmtPayConfig     BaseObj[LargeAmtPayConfig]     `json:"large_amt_pay_config"`
-		LegalAddr             string                         `json:"legal_addr"`
-		LegalCertBeginDate    string                         `json:"legal_cert_begin_date"`
-		LegalCertEndDate      string                         `json:"legal_cert_end_date"`
-		LegalCertNo           string                         `json:"legal_cert_no"`
-		LegalCertType         string                         `json:"legal_cert_type"`
-		LegalCertValidityType string                         `json:"legal_cert_validity_type"`
-		LegalName             string                         `json:"legal_name"`
-		LegalNationality      string                         `json:"legal_nationality"`
-		LicenseBeginDate      string                         `json:"license_begin_date"`
-		LicenseCode           string                         `json:"license_code"`
-		LicenseEndDate        string                         `json:"license_end_date"`
-		LicenseType           string                         `json:"license_type"`
-		LicenseValidityType   string                         `json:"license_validity_type"`
-		LoginName             string                         `json:"login_name"`
-		Mcc                   string                         `json:"mcc"`
-		MerEnName             string                         `json:"mer_en_name"`
-		MerIcp                string                         `json:"mer_icp"`
-		MerLevel              string                         `json:"mer_level"`
-		MerStat               string                         `json:"mer_stat"`
-		MerUrl                string                         `json:"mer_url"`
-		OnlineBusiType        string                         `json:"online_busi_type"`
-		OnlineFeeConfList     BaseObj[[]OnlineFeeConfList]   `json:"online_fee_conf_list"`
-		OnlineFlag            string                         `json:"online_flag"`
-		OnlineMediaInfo       BaseObj[[]OnlineMediaInfo]     `json:"online_media_info"`
-		OnlineRefund          string                         `json:"online_refund"`
-		OpenLicenceNo         string                         `json:"open_licence_no"`
-		OutFeeFlag            string                         `json:"out_fee_flag"`
-		OutOrderFundsMerge    string                         `json:"out_order_funds_merge"`
-		ParentHuifuId         string                         `json:"parent_huifu_id"`
-		PlatformRefund        string                         `json:"platform_refund"`
-		PreAuthorizationFlag  string                         `json:"pre_authorization_flag"`
-		ProductId             string                         `json:"product_id"`
-		ProvId                string                         `json:"prov_id"`
-		QryAliConfList        BaseObj[[]QryAliConfList]      `json:"qry_ali_conf_list"`
-		QryBalancePayConfig   BaseObj[QryBalancePayConfig]   `json:"qry_balance_pay_config"`
-		QryBankCardConf       BaseObj[QryBankCardConf]       `json:"qry_bank_card_conf"`
-		QryCashCardInfoList   BaseObj[[]QryCashCardInfoList] `json:"qry_cash_card_info_list"`
-		QryCashConfigList     BaseObj[[]QryCashConfigList]   `json:"qry_cash_config_list"`
-		QryUnionConf          BaseObj[QryUnionConf]          `json:"qry_union_conf"`
-		QryWxConfList         BaseObj[[]QryWxConfList]       `json:"qry_wx_conf_list"`
-		QuickFlag             string                         `json:"quick_flag"`
-		ReceiptName           string                         `json:"receipt_name"`
-		ReconRespAddr         string                         `json:"recon_resp_addr"`
-		RegAreaId             string                         `json:"reg_area_id"`
-		RegDetail             string                         `json:"reg_detail"`
-		RegDistrictId         string                         `json:"reg_district_id"`
-		RegName               string                         `json:"reg_name"`
-		RegProvId             string                         `json:"reg_prov_id"`
-		Remarks               string                         `json:"remarks"`
-		RespCode              string                         `json:"resp_code"`
-		RespDesc              string                         `json:"resp_desc"`
-		ServicePhone          string                         `json:"service_phone"`
-		ShareHolderInfoList   BaseObj[[]ShareHolderInfoList] `json:"share_holder_info_list"`
-		ShortName             string                         `json:"short_name"`
-		SignUserInfoList      BaseObj[[]SignUserInfoList]    `json:"sign_user_info_list"`
-		SmsSendFlag           string                         `json:"sms_send_flag"`
-		SupportRevoke         string                         `json:"support_revoke"`
-		TaxConfig             BaseObj[TaxConfig]             `json:"tax_config"`
-		UniAppPaymentConfig   BaseObj[UniAppPaymentConfig]   `json:"uni_app_payment_config"`
-		UpperHuifuId          string                         `json:"upper_huifu_id"`
-		WalletConfig          string                         `json:"wallet_config"`
-		WebFlag               string                         `json:"web_flag"`
-		WithholdFlag          string                         `json:"withhold_flag"`
-		WxZlConf              string                         `json:"wx_zl_conf"`
+		AgreementInfoList     common.StringObject[[]AgreementInfoList]   `json:"agreement_info_list"` //协议信息
+		AreaId                string                                     `json:"area_id"`
+		BalancePayFlag        string                                     `json:"balance_pay_flag"`
+		BankBigAmtPayConfig   common.StringObject[BankBigAmtPayConfig]   `json:"bank_big_amt_pay_config"`
+		BeneficiaryInfoList   common.StringObject[[]BeneficiaryInfoList] `json:"beneficiary_info_list"`
+		BusiType              string                                     `json:"busi_type"`
+		ContactEmail          string                                     `json:"contact_email"`
+		ContactMobileNo       string                                     `json:"contact_mobile_no"`
+		ContactName           string                                     `json:"contact_name"`
+		CrossBorderPayConfig  string                                     `json:"cross_border_pay_config"`
+		CustType              string                                     `json:"cust_type"`
+		DelayFlag             string                                     `json:"delay_flag"`
+		DetailAddr            string                                     `json:"detail_addr"`
+		DistrictId            string                                     `json:"district_id"`
+		EntType               string                                     `json:"ent_type"`
+		EnterFeeFlag          string                                     `json:"enter_fee_flag"`
+		ExtMerId              string                                     `json:"ext_mer_id"`
+		FileInfoList          common.StringObject[[]FileInfoList]        `json:"file_info_list"`
+		ForcedDelayFlag       string                                     `json:"forced_delay_flag"`
+		FundCollectionFlag    string                                     `json:"fund_collection_flag"`
+		HalfPayHostFlag       string                                     `json:"half_pay_host_flag"`
+		HeadOfficeFlag        string                                     `json:"head_office_flag"`
+		LargeAmtPayConfig     common.StringObject[LargeAmtPayConfig]     `json:"large_amt_pay_config"`
+		LegalAddr             string                                     `json:"legal_addr"`
+		LegalCertBeginDate    string                                     `json:"legal_cert_begin_date"`
+		LegalCertEndDate      string                                     `json:"legal_cert_end_date"`
+		LegalCertNo           string                                     `json:"legal_cert_no"`
+		LegalCertType         string                                     `json:"legal_cert_type"`
+		LegalCertValidityType string                                     `json:"legal_cert_validity_type"`
+		LegalName             string                                     `json:"legal_name"`
+		LegalNationality      string                                     `json:"legal_nationality"`
+		LicenseBeginDate      string                                     `json:"license_begin_date"`
+		LicenseCode           string                                     `json:"license_code"`
+		LicenseEndDate        string                                     `json:"license_end_date"`
+		LicenseType           string                                     `json:"license_type"`
+		LicenseValidityType   string                                     `json:"license_validity_type"`
+		LoginName             string                                     `json:"login_name"`
+		Mcc                   string                                     `json:"mcc"`
+		MerEnName             string                                     `json:"mer_en_name"`
+		MerIcp                string                                     `json:"mer_icp"`
+		MerLevel              string                                     `json:"mer_level"`
+		MerStat               string                                     `json:"mer_stat"`
+		MerUrl                string                                     `json:"mer_url"`
+		OnlineBusiType        string                                     `json:"online_busi_type"`
+		OnlineFeeConfList     common.StringObject[[]OnlineFeeConfList]   `json:"online_fee_conf_list"`
+		OnlineFlag            string                                     `json:"online_flag"`
+		OnlineMediaInfo       common.StringObject[[]OnlineMediaInfo]     `json:"online_media_info"`
+		OnlineRefund          string                                     `json:"online_refund"`
+		OpenLicenceNo         string                                     `json:"open_licence_no"`
+		OutFeeFlag            string                                     `json:"out_fee_flag"`
+		OutOrderFundsMerge    string                                     `json:"out_order_funds_merge"`
+		ParentHuifuId         string                                     `json:"parent_huifu_id"`
+		PlatformRefund        string                                     `json:"platform_refund"`
+		PreAuthorizationFlag  string                                     `json:"pre_authorization_flag"`
+		ProductId             string                                     `json:"product_id"`
+		ProvId                string                                     `json:"prov_id"`
+		QryAliConfList        common.StringObject[[]QryAliConfList]      `json:"qry_ali_conf_list"`
+		QryBalancePayConfig   common.StringObject[QryBalancePayConfig]   `json:"qry_balance_pay_config"`
+		QryBankCardConf       common.StringObject[QryBankCardConf]       `json:"qry_bank_card_conf"`
+		QryCashCardInfoList   common.StringObject[[]QryCashCardInfoList] `json:"qry_cash_card_info_list"`
+		QryCashConfigList     common.StringObject[[]QryCashConfigList]   `json:"qry_cash_config_list"`
+		QryUnionConf          common.StringObject[QryUnionConf]          `json:"qry_union_conf"`
+		QryWxConfList         common.StringObject[[]QryWxConfList]       `json:"qry_wx_conf_list"`
+		QuickFlag             string                                     `json:"quick_flag"`
+		ReceiptName           string                                     `json:"receipt_name"`
+		ReconRespAddr         string                                     `json:"recon_resp_addr"`
+		RegAreaId             string                                     `json:"reg_area_id"`
+		RegDetail             string                                     `json:"reg_detail"`
+		RegDistrictId         string                                     `json:"reg_district_id"`
+		RegName               string                                     `json:"reg_name"`
+		RegProvId             string                                     `json:"reg_prov_id"`
+		Remarks               string                                     `json:"remarks"`
+		RespCode              string                                     `json:"resp_code"`
+		RespDesc              string                                     `json:"resp_desc"`
+		ServicePhone          string                                     `json:"service_phone"`
+		ShareHolderInfoList   common.StringObject[[]ShareHolderInfoList] `json:"share_holder_info_list"`
+		ShortName             string                                     `json:"short_name"`
+		SignUserInfoList      common.StringObject[[]SignUserInfoList]    `json:"sign_user_info_list"`
+		SmsSendFlag           string                                     `json:"sms_send_flag"`
+		SupportRevoke         string                                     `json:"support_revoke"`
+		TaxConfig             common.StringObject[TaxConfig]             `json:"tax_config"`
+		UniAppPaymentConfig   common.StringObject[UniAppPaymentConfig]   `json:"uni_app_payment_config"`
+		UpperHuifuId          string                                     `json:"upper_huifu_id"`
+		WalletConfig          string                                     `json:"wallet_config"`
+		WebFlag               string                                     `json:"web_flag"`
+		WithholdFlag          string                                     `json:"withhold_flag"`
+		WxZlConf              string                                     `json:"wx_zl_conf"`
 	} `json:"data"`
 	Sign string `json:"sign"`
 }
