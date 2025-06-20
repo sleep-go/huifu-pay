@@ -29,3 +29,11 @@ func (o StringObject[T]) Decode() T {
 	_ = json.Unmarshal([]byte(o), &res)
 	return res
 }
+func HandleResponse[T any](resp map[string]any) (out *T, raw string, err error) {
+	marshal, _ := json.Marshal(resp)
+	err = json.Unmarshal(marshal, &out)
+	if err != nil {
+		return nil, "", err
+	}
+	return out, string(marshal), nil
+}
