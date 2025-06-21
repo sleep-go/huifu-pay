@@ -1,6 +1,7 @@
 package common
 
 // CertType 自然人证件类型
+// https://paas.huifu.com/open/doc/api/#/api_ggcsbm?id=%e8%87%aa%e7%84%b6%e4%ba%ba%e8%af%81%e4%bb%b6%e7%b1%bb%e5%9e%8b
 type CertType string
 
 const (
@@ -10,7 +11,7 @@ const (
 	//企业受益人证件支持00~11；
 
 	// CertType00 00:身份证
-	CertType00 CertType = "00"
+	CertType00 CertType = "00" //CertType00 00:身份证
 	// CertType01 //01:护照
 	CertType01 CertType = "01"
 	// CertType02 02:军官证
@@ -41,6 +42,8 @@ const (
 	CertType15 CertType = "15"
 )
 
+// FileType 文件类型
+// https://paas.huifu.com/open/doc/api/#/csfl/api_csfl_wjlx
 type FileType string
 
 const (
@@ -148,141 +151,276 @@ const (
 	FileTypeF51 = "F51"
 	// FileTypeF52 F52	支付宝直连appid的公钥证书路径
 	FileTypeF52 = "F52"
-	//F53	微信直连应用私钥(请求证书)
-	//F54	微信直连应用公钥(加密证书)
-	//F55	结算人身份证国会面
-	//F56	结算人身份证人像面
-	//F57	组织机构代码证
-	//F58	税务登记证书
-	//F60	小程序截图截图一
-	//F61	小程序截图截图二
-	//F62	小程序截图截图三
-	//F63	小程序截图截图四
-	//F64	小程序截图截图五
+	// FileTypeF53 F53	微信直连应用私钥(请求证书)
+	FileTypeF53 = "F53"
+	// FileTypeF54 F54	微信直连应用公钥(加密证书)
+	FileTypeF54 = "F54"
+	// FileTypeF55 F55	结算人身份证国会面
+	FileTypeF55 = "F55"
+	// FileTypeF56 F56	结算人身份证人像面
+	FileTypeF56 = "F56"
+	// FileTypeF57 F57	组织机构代码证
+	FileTypeF57 = "F57"
+	// FileTypeF58 F58	税务登记证书
+	FileTypeF58 = "F58"
+	// FileTypeF60 F60	小程序截图截图一
+	FileTypeF60 = "F60"
+	// FileTypeF61 F61	小程序截图截图二
+	FileTypeF61 = "F61"
+	// FileTypeF62 F62	小程序截图截图三
+	FileTypeF62 = "F62"
+	// FileTypeF63 F63	小程序截图截图四
+	FileTypeF63 = "F63"
+	// FileTypeF64 F64	小程序截图截图五
+	FileTypeF64 = "F64"
 	//F65	APP首页截图
+	FileTypeF65 = "F65"
 	//F66	APP尾页截图
+	FileTypeF66 = "F66"
 	//F67	APP应用内截图
+	FileTypeF67 = "F67"
 	//F68	APP支付页截图
+	FileTypeF68 = "F68"
 	//F69	网站授权函
+	FileTypeF69 = "F69"
 	//F70	企业微信页面截图一
+	FileTypeF70 = "F70"
 	//F71	企业微信页面截图二
+	FileTypeF71 = "F71"
 	//F72	企业微信页面截图三
+	FileTypeF72 = "F72"
 	//F73	企业微信页面截图四
+	FileTypeF73 = "F73"
 	//F74	企业微信页面截图五
+	FileTypeF74 = "F74"
 	//F75	特殊资质图片一
+	FileTypeF75 = "F75"
 	//F76	特殊资质图片二
+	FileTypeF76 = "F76"
 	//F77	特殊资质图片三
+	FileTypeF77 = "F77"
 	//F78	特殊资质图片四
+	FileTypeF78 = "F78"
 	//F79	特殊资质图片五
+	FileTypeF79 = "F79"
 	//F80	优惠费率活动补充材料一
+	FileTypeF80 = "F80"
 	//F81	优惠费率活动补充材料二
+	FileTypeF81 = "F81"
 	//F82	优惠费率活动补充材料三
+	FileTypeF82 = "F82"
 	//F83	优惠费率活动补充材料四
+	FileTypeF83 = "F83"
 	//F84	优惠费率活动补充材料五
+	FileTypeF84 = "F84"
 	//F85	微信直连额外补充材料一
+	FileTypeF85 = "F85"
 	//F86	微信直连额外补充材料二
+	FileTypeF86 = "F86"
 	//F87	微信直连额外补充材料三
+	FileTypeF87 = "F87"
 	//F88	微信直连额外补充材料四
+	FileTypeF88 = "F88"
 	//F89	微信直连额外补充材料五
+	FileTypeF89 = "F89"
 	//F90	法人开户承诺函
+	FileTypeF90 = "F90"
 	//F91	法人开户意愿视频
+	FileTypeF91 = "F91"
 	//F95	公众号页面截图一
+	FileTypeF95 = "F95"
 	//F96	公众号页面截图二
+	FileTypeF96 = "F96"
 	//F97	公众号页面截图三
+	FileTypeF97 = "F97"
 	//F98	公众号页面截图四
+	FileTypeF98 = "F98"
 	//F99	公众号页面截图五
+	FileTypeF99 = "F99"
 	//F100	持卡人护照人像面
+	FileTypeF100 = "F100"
 	//F101	持卡人港澳台通行证正面
+	FileTypeF101 = "F101"
 	//F102	持卡人其它证件照片
+	FileTypeF102 = "F102"
 	//F103	持卡人身份证人像面
+	FileTypeF103 = "F103"
 	//F104	持卡人身份证国徽面
+	FileTypeF104 = "F104"
 	//F105	（线下场景）收银台
+	FileTypeF105 = "F105"
 	//F106	法人手持营业执照
+	FileTypeF106 = "F106"
 	//F107	法人手持身份证
+	FileTypeF107 = "F107"
 	//F108	门店真实经营地址（百度截图）
+	FileTypeF108 = "F108"
 	//F109	商户机打小票照片
+	FileTypeF109 = "F109"
 	//F110	ICP备案截图
+	FileTypeF110 = "F110"
 	//F111	支付宝申诉成功截图
+	FileTypeF111 = "F111"
 	//F112	微信申诉成功截图
+	FileTypeF112 = "F112"
 	//F113	异常情况原因说明函
+	FileTypeF113 = "F113"
 	//F114	订单信息
+	FileTypeF114 = "F114"
 	//F115	物流信息
+	FileTypeF115 = "F115"
 	//F116	协议
+	FileTypeF116 = "F116"
 	//F117	其他
+	FileTypeF117 = "F117"
 	//F118	交易APP/小程序截图
+	FileTypeF118 = "F118"
 	//F119	商户日常业务描述
+	FileTypeF119 = "F119"
 	//F120	支付宝间连应用私钥
+	FileTypeF120 = "F120"
 	//F121	支付宝间连支付宝公钥
+	FileTypeF121 = "F121"
 	//F122	发票协议	暂不支持接口上传
+	FileTypeF122 = "F122"
 	//F123	现场注册号	暂不支持接口上传
+	FileTypeF123 = "F123"
 	//F124	商户资料包	暂不支持接口上传
+	FileTypeF124 = "F124"
 	//F125	现场注册号2	暂不支持接口上传
+	FileTypeF125 = "F125"
 	//F126	负责人身份证人像面	暂不支持接口上传
+	FileTypeF126 = "F126"
 	//F127	负责人身份证国徽面	暂不支持接口上传
+	FileTypeF127 = "F127"
 	//F150	行业经营许可证资质照片一
+	FileTypeF150 = "F150"
 	//F151	行业经营许可证资质照片二
+	FileTypeF151 = "F151"
 	//F152	行业经营许可证资质照片三
+	FileTypeF152 = "F152"
 	//F153	行业经营许可证资质照片四
+	FileTypeF153 = "F153"
 	//F154	行业经营许可证资质照片五
+	FileTypeF154 = "F154"
 	//F155	行业经营许可证资质照片六
+	FileTypeF155 = "F155"
 	//F156	快捷支付行业资质证明	暂不支持接口上传
+	FileTypeF156 = "F156"
 	//F157	代扣支付场景使用说明	暂不支持接口上传
+	FileTypeF157 = "F157"
 	//F158	网银支付行业资质证明	暂不支持接口上传
+	FileTypeF158 = "F158"
 	//F159	小程序二维码	暂不支持接口上传
+	FileTypeF159 = "F159"
 	//F160	公众号二维码	暂不支持接口上传
+	FileTypeF160 = "F160"
 	//F161	手持身份证（人像面）照片	暂不支持接口上传
+	FileTypeF161 = "F161"
 	//F162	其他照片11	暂不支持接口上传
+	FileTypeF162 = "F162"
 	//F163	其他照片12	暂不支持接口上传
+	FileTypeF163 = "F163"
 	//F164	其他照片13	暂不支持接口上传
+	FileTypeF164 = "F164"
 	//F165	其他照片14	暂不支持接口上传
+	FileTypeF165 = "F165"
 	//F166	其他照片15	暂不支持接口上传
+	FileTypeF166 = "F166"
 	//F167	租赁协议一（封面）	暂不支持接口上传
+	FileTypeF167 = "F167"
 	//F168	租赁协议二（面积、有效期页）	暂不支持接口上传
+	FileTypeF168 = "F168"
 	//F169	租赁协议三（签章页）	暂不支持接口上传
+	FileTypeF169 = "F169"
 	//F170	代理人签名	暂不支持接口上传
+	FileTypeF170 = "F170"
 	//F171	确认人签名	暂不支持接口上传
+	FileTypeF171 = "F171"
 	//F172	非法人结算授权函	暂不支持接口上传
+	FileTypeF172 = "F172"
 	//F173	统一结算无营业执照说明	暂不支持接口上传
+	FileTypeF173 = "F173"
 	//F174	新旧结算人手持身份证合照	暂不支持接口上传
+	FileTypeF174 = "F174"
 	//F175	商户信息变更表	暂不支持接口上传
+	FileTypeF175 = "F175"
 	//F176	社会团体法人证书	暂不支持接口上传
+	FileTypeF176 = "F176"
 	//F177	基金会法人登记证书	暂不支持接口上传
+	FileTypeF177 = "F177"
 	//F178	办学许可证	暂不支持接口上传
+	FileTypeF178 = "F178"
 	//F179	医疗机构执业许可证	暂不支持接口上传
+	FileTypeF179 = "F179"
 	//F180	经营保险业务许可证	暂不支持接口上传
+	FileTypeF180 = "F180"
 	//F181	保险业务法人等级证书	暂不支持接口上传
+	FileTypeF181 = "F181"
 	//F182	民办教育许可证	暂不支持接口上传
+	FileTypeF182 = "F182"
 	//F183	收费证明文件	暂不支持接口上传
+	FileTypeF183 = "F183"
 	//F184	活动报名-营业执照	暂不支持接口上传
+	FileTypeF184 = "F184"
 	//F185	活动报名-门头与业务员合照	暂不支持接口上传
+	FileTypeF185 = "F185"
 	//F186	活动报名-店内环境照	暂不支持接口上传
+	FileTypeF186 = "F186"
 	//F187	活动报名-收银台与业务员合照	暂不支持接口上传
+	FileTypeF187 = "F187"
 	//F188	活动报名-主流餐饮平台入驻商户展示页面照	暂不支持接口上传
+	FileTypeF188 = "F188"
 	//F189	活动报名-高校食堂合作证明	暂不支持接口上传
+	FileTypeF189 = "F189"
 	//F190	活动报名-零费率承诺函	暂不支持接口上传
+	FileTypeF190 = "F190"
 	//F191	活动报名-高校食堂门头照	暂不支持接口上传
+	FileTypeF191 = "F191"
 	//F192	活动报名-高校食堂内景照	暂不支持接口上传
+	FileTypeF192 = "F192"
 	//F193	活动报名-高校资质佐证图	暂不支持接口上传
+	FileTypeF193 = "F193"
 	//F194	高校办学许可证	暂不支持接口上传
+	FileTypeF194 = "F194"
 	//F195	教培机构资质证明	暂不支持接口上传
+	FileTypeF195 = "F195"
 	//F196	教培机构门头照片	暂不支持接口上传
+	FileTypeF196 = "F196"
 	//F197	教培机构门店租赁相关证明	暂不支持接口上传
+	FileTypeF197 = "F197"
 	//F198	补充材料	暂不支持接口上传
+	FileTypeF198 = "F198"
 	//F199	民办非企业单位登记证书	暂不支持接口上传
+	FileTypeF199 = "F199"
 	//F200	收费样本文件	暂不支持接口上传
+	FileTypeF200 = "F200"
 	//F201	卫生局批文	暂不支持接口上传
+	FileTypeF201 = "F201"
 	//F202	餐饮服务许可证	暂不支持接口上传
+	FileTypeF202 = "F202"
 	//F203	食品卫生许可证	暂不支持接口上传
+	FileTypeF203 = "F203"
 	//F204	食品经营许可证	暂不支持接口上传
+	FileTypeF204 = "F204"
 	//F205	食品流通许可证料	暂不支持接口上传
+	FileTypeF205 = "F205"
 	//F206	食品生产许可证	暂不支持接口上传
+	FileTypeF206 = "F206"
 	//F207	烟草专卖许可证	暂不支持接口上传
+	FileTypeF207 = "F207"
 	//F208	锡商企业经营地照片	暂不支持接口上传
+	FileTypeF208 = "F208"
 	//F209	锡商企业证件图片信息	暂不支持接口上传
+	FileTypeF209 = "F209"
 	//F210	锡商法人证件照正面	暂不支持接口上传
+	FileTypeF210 = "F210"
 	//F211	锡商法人证件照反面	暂不支持接口上传
+	FileTypeF211 = "F211"
 	//F212	锡商经办人证件照正面	暂不支持接口上传
+	FileTypeF212 = "F212"
 	//F213	锡商经办人证件照反面	暂不支持接口上传
+	FileTypeF213 = "F213"
 	//F214	锡商实控人证件照正面	暂不支持接口上传
 	//F215	锡商实控人证件照反面	暂不支持接口上传
 	//F216	锡商受益人证件照正面	暂不支持接口上传

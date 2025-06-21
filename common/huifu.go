@@ -30,7 +30,10 @@ func (o StringObject[T]) Decode() T {
 	return res
 }
 func HandleResponse[T any](resp map[string]any) (out *T, raw string, err error) {
-	marshal, _ := json.Marshal(resp)
+	marshal, err := json.Marshal(resp)
+	if err != nil {
+		return nil, "", err
+	}
 	err = json.Unmarshal(marshal, &out)
 	if err != nil {
 		return nil, "", err
