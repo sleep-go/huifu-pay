@@ -24,7 +24,7 @@ func (t *Trade) V3TradePaymentJspay(req V3TradePaymentJspayRequest) (res *V3Trad
 		GoodsDesc:   req.GoodsDesc,
 		TradeType:   string(req.TradeType),
 		TransAmt:    req.TransAmt,
-		ExtendInfos: BsPaySdk.ToMap(req.ExtendInfos),
+		ExtendInfos: common.StructToMapClean(req.ExtendInfos),
 	})
 	if err != nil {
 		return nil, "", err
@@ -215,27 +215,6 @@ type TransFeeAllowanceInfo struct {
 	//	2.补贴手续费金额大于该笔手续费金额时，按照该笔交易实际手续费金额补贴；
 	AllowanceFeeAmt string
 }
-type ExtendInfos struct {
-	TimeExpire            string                `json:"time_expire"`
-	WxData                WxData                `json:"wx_data"`
-	AlipayData            AlipayData            `json:"alipay_data"`
-	UnionpayData          UnionpayData          `json:"unionpay_data"`
-	DcData                DcData                `json:"dc_data"` //数字人民币参数集合
-	DelayAcctFlag         string                `json:"delay_acct_flag"`
-	FeeFlag               string                `json:"fee_flag"`
-	AcctSplitBunch        AcctSplitBunch        `json:"acct_split_bunch"`
-	TermDivCouponType     string                `json:"term_div_coupon_type"` //传入分账遇到优惠的处理规则	Integer	1	N	1: 按比例分，2: 按分账明细顺序保障，3: 只给交易商户（默认)；示例值：1
-	CombinedpayData       CombinedpayData       `json:"combinedpay_data"`
-	LimitPayType          string                `json:"limit_pay_type"` //禁用信用卡标记	String	128	N	本次交易禁止使用的支付方式，默认不禁用；取值参见说明；示例值：NO_CREDIT
-	FqMerDiscountFlag     string                `json:"fq_mer_discount_flag"`
-	ChannelNo             string                `json:"channel_no"`
-	PayScene              string                `json:"pay_scene"`
-	Remark                string                `json:"remark"`
-	RiskCheckData         RiskCheckData         `json:"risk_check_data"`
-	TerminalDeviceData    TerminalDeviceData    `json:"terminal_device_data"`
-	NotifyUrl             string                `json:"notify_url"`
-	TransFeeAllowanceInfo TransFeeAllowanceInfo `json:"trans_fee_allowance_info"`
-}
 type V3TradePaymentJspayRequest struct {
 	ReqDate     string           `json:"req_date"`
 	ReqSeqId    string           `json:"req_seq_id"`
@@ -244,7 +223,27 @@ type V3TradePaymentJspayRequest struct {
 	GoodsDesc   string           `json:"goods_desc"` //商品描述	String	127	Y	示例值：XX商品
 	TradeType   common.TradeType `json:"trade_type"` //交易类型	String	16	Y
 	TransAmt    string           `json:"trans_amt"`
-	ExtendInfos ExtendInfos
+	ExtendInfos struct {
+		TimeExpire            string                `json:"time_expire"`
+		WxData                WxData                `json:"wx_data"`
+		AlipayData            AlipayData            `json:"alipay_data"`
+		UnionpayData          UnionpayData          `json:"unionpay_data"`
+		DcData                DcData                `json:"dc_data"` //数字人民币参数集合
+		DelayAcctFlag         string                `json:"delay_acct_flag"`
+		FeeFlag               string                `json:"fee_flag"`
+		AcctSplitBunch        AcctSplitBunch        `json:"acct_split_bunch,omitempty"`
+		TermDivCouponType     string                `json:"term_div_coupon_type"` //传入分账遇到优惠的处理规则	Integer	1	N	1: 按比例分，2: 按分账明细顺序保障，3: 只给交易商户（默认)；示例值：1
+		CombinedpayData       CombinedpayData       `json:"combinedpay_data"`
+		LimitPayType          string                `json:"limit_pay_type"` //禁用信用卡标记	String	128	N	本次交易禁止使用的支付方式，默认不禁用；取值参见说明；示例值：NO_CREDIT
+		FqMerDiscountFlag     string                `json:"fq_mer_discount_flag"`
+		ChannelNo             string                `json:"channel_no"`
+		PayScene              string                `json:"pay_scene"`
+		Remark                string                `json:"remark"`
+		RiskCheckData         RiskCheckData         `json:"risk_check_data"`
+		TerminalDeviceData    TerminalDeviceData    `json:"terminal_device_data"`
+		NotifyUrl             string                `json:"notify_url"`
+		TransFeeAllowanceInfo TransFeeAllowanceInfo `json:"trans_fee_allowance_info"`
+	}
 }
 type V3TradePaymentJspayResponse struct {
 	Data struct {

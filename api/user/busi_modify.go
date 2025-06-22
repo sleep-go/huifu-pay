@@ -19,7 +19,7 @@ func (u *User) V2UserBusiModify(req V2UserBusiModifyRequest) (res *V2UserBusiMod
 		ReqSeqId:     req.ReqSeqId,
 		ReqDate:      req.ReqDate,
 		UpperHuifuId: req.UpperHuifuId,
-		ExtendInfos:  BsPaySdk.ToMap(req.ExtendInfos),
+		ExtendInfos:  common.StructToMapClean(req.ExtendInfos),
 	})
 	if err != nil {
 		return nil, "", err

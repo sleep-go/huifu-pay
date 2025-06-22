@@ -21,7 +21,7 @@ func (u *User) V2UserBusiOpen(req V2UserBusiOpenRequest) (res *V2UserBusiOpenRes
 		ReqSeqId:     req.ReqSeqId,
 		ReqDate:      req.ReqDate,
 		UpperHuifuId: req.UpperHuifuId,
-		ExtendInfos:  BsPaySdk.ToMap(req.ExtendInfos),
+		ExtendInfos:  common.StructToMapClean(req.ExtendInfos),
 	})
 	if err != nil {
 		return nil, "", err

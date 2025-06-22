@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 
 	"github.com/huifurepo/bspay-go-sdk/BsPaySdk"
+	"github.com/sleep-go/huifu-pay/common"
 )
 
 // V2MerchantUrlForward 商户统一进件（页面版）
@@ -20,7 +21,7 @@ func (bd *Merchant) V2MerchantUrlForward(req V2MerchantUrlForwardRequest) (res *
 		ReqDate:      req.ReqDate,
 		UpperHuifuId: bd.HuifuPay.BsPay.Msc.SysId,
 		StoreId:      req.StoreId,
-		ExtendInfos:  BsPaySdk.ToMap(req.ExtendInfos),
+		ExtendInfos:  common.StructToMapClean(req.ExtendInfos),
 	})
 	if err != nil {
 		return nil, "", err

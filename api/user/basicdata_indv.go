@@ -25,7 +25,7 @@ func (u *User) V2UserBasicdataIndv(req V2UserBasicdataIndvRequest) (res *V2UserB
 		CertNationality:  req.CertNationality,
 		MobileNo:         req.MobileNo,
 		Address:          req.Address,
-		ExtendInfos:      BsPaySdk.ToMap(req.ExtendInfos),
+		ExtendInfos:      common.StructToMapClean(req.ExtendInfos),
 	})
 	if err != nil {
 		return nil, "", err
