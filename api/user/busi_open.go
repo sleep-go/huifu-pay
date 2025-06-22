@@ -6,7 +6,7 @@ import (
 )
 
 // V2UserBusiOpen 用户业务入驻
-// POSThttps://api.huifu.com/v2/user/busi/open
+// POST https://api.huifu.com/v2/user/busi/open
 //
 // 最近更新时间：2025.06.16 作者: 宋少清
 //

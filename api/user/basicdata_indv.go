@@ -15,6 +15,8 @@ func NewUser(huifuPay *common.HuifuPay) *User {
 }
 
 // V2UserBasicdataIndv 个人用户基本信息开户
+// POST https://api.huifu.com/v2/user/basicdata/indv
+//
 // 应用场景
 // 服务商或商户为旗下的个人用户开户，开户后该用户可使用多方分账及结算功能。
 //

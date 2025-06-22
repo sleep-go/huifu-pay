@@ -6,7 +6,7 @@ import (
 )
 
 // V2UserBusiModify 用户业务入驻修改
-// POSThttps://api.huifu.com/v2/user/busi/modify
+// POST https://api.huifu.com/v2/user/busi/modify
 //
 // 应用场景
 // 服务商或商户为旗下的企业/个人用户修改结算费率及结算卡等信息。
