@@ -5,6 +5,7 @@ import (
 	"log"
 	"testing"
 
+	"github.com/duke-git/lancet/v2/convertor"
 	"github.com/duke-git/lancet/v2/fileutil"
 	"github.com/huifurepo/bspay-go-sdk/ut/tool"
 	"github.com/sleep-go/huifu-pay/api/merchant"
@@ -31,18 +32,27 @@ func TestV2MerchantBasicdataQueryRequest(t *testing.T) {
 }
 func TestV2MerchantUrlForward(t *testing.T) {
 	response, raw, err := bd.V2MerchantUrlForward(merchant.V2MerchantUrlForwardRequest{
-		ReqSeqId:        tool.GetReqSeqId(),
-		ReqDate:         tool.GetCurrentDate(),
-		Phone:           "18502243993",
-		StoreId:         "HS001",
-		Expires:         "50000",
-		BackPageUrl:     "",
-		AsyncReceiveUrl: "",
-		TemplateId:      "",
+		ReqSeqId:     tool.GetReqSeqId(),
+		ReqDate:      tool.GetCurrentDate(),
+		UpperHuifuId: "",
+		StoreId:      "HS001",
+		ExtendInfos: merchant.V2MerchantUrlForwardExtendInfos{
+			Phone:           "18502243993",
+			Expires:         "50000",
+			BackPageUrl:     "",
+			AsyncReceiveUrl: "",
+			TemplateId:      "",
+		},
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
 	_ = fileutil.WriteStringToFile("./1.json", raw, false)
 	fmt.Printf("======response======\n%+v\n", response.Data)
+}
+
+func TestName(t *testing.T) {
+	s := ""
+	pointer := convertor.ToPointer(s)
+	fmt.Println(pointer)
 }

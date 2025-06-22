@@ -41,24 +41,25 @@ type V2UserBusiModifyRequest struct {
 	ReqSeqId     string `json:"req_seq_id"`
 	ReqDate      string `json:"req_date"`
 	UpperHuifuId string `json:"upper_huifu_id"` //渠道商/商户汇付Id	String	18	Y	汇付分配的渠道商或商户编号；示例值：6666000123123123
-	ExtendInfos  struct {
-		SettleConfig SettleConfig `json:"settle_config"` //结算信息配置	String
-		CardInfo     CardInfo     `json:"card_info"`     //结算卡信息
-		CashConfig   []CashConfig `json:"cash_config"`   //取现配置列表
-		FileList     []struct {
-			FileId   string `json:"file_id"`
-			FileName string `json:"file_name"`
-			FileType string `json:"file_type"`
-		} `json:"file_list"` //文件列表
-		DelayFlag         string            `json:"delay_flag"`       //延迟入账开关	String	1	N	N：否 Y：是；示例值：Y
-		ElecAcctConfig    ElecAcctConfig    `json:"elec_acct_config"` //斗拱e账户功能配置	String		N
-		OpenTaxFlag       string            `json:"open_tax_flag"`    //灵活用工开关	String	1	N	N：否（默认） Y：是；示例值：Y 1、个人证件类型必须为身份证类型。2、结算卡信息可不填；若填写则结算类型不能为对公，且结算账户名与个人姓名一致。
-		AsyncReturnUrl    string            `json:"async_return_url"` //异步请求地址	String	128	N	为空时不推送异步消息 格式：http://消息接收地址，示例值：http://service.example.com/to/path
-		LgPlatformType    string            `json:"lg_platform_type"` //合作平台	String	3	N	LJH-乐接活，HYC-汇优财 灵工业务开关为Y，不填则默认汇优财
-		LjhData           LjhData           `json:"ljh_data"`         //乐接活配置	String		C	当合作平台为乐接活，必填
-		ElecReceiptConfig ElecReceiptConfig `json:"elec_receipt_config"`
-		SignUserInfo      SignUserInfo
-	}
+	ExtendInfos  V2UserBusiModifyExtendInfos
+}
+type V2UserBusiModifyExtendInfos struct {
+	SettleConfig SettleConfig `json:"settle_config"` //结算信息配置	String
+	CardInfo     CardInfo     `json:"card_info"`     //结算卡信息
+	CashConfig   []CashConfig `json:"cash_config"`   //取现配置列表
+	FileList     []struct {
+		FileId   string `json:"file_id"`
+		FileName string `json:"file_name"`
+		FileType string `json:"file_type"`
+	} `json:"file_list"` //文件列表
+	DelayFlag         string            `json:"delay_flag"`       //延迟入账开关	String	1	N	N：否 Y：是；示例值：Y
+	ElecAcctConfig    ElecAcctConfig    `json:"elec_acct_config"` //斗拱e账户功能配置	String		N
+	OpenTaxFlag       string            `json:"open_tax_flag"`    //灵活用工开关	String	1	N	N：否（默认） Y：是；示例值：Y 1、个人证件类型必须为身份证类型。2、结算卡信息可不填；若填写则结算类型不能为对公，且结算账户名与个人姓名一致。
+	AsyncReturnUrl    string            `json:"async_return_url"` //异步请求地址	String	128	N	为空时不推送异步消息 格式：http://消息接收地址，示例值：http://service.example.com/to/path
+	LgPlatformType    string            `json:"lg_platform_type"` //合作平台	String	3	N	LJH-乐接活，HYC-汇优财 灵工业务开关为Y，不填则默认汇优财
+	LjhData           LjhData           `json:"ljh_data"`         //乐接活配置	String		C	当合作平台为乐接活，必填
+	ElecReceiptConfig ElecReceiptConfig `json:"elec_receipt_config"`
+	SignUserInfo      SignUserInfo
 }
 type V2UserBusiModifyReponse struct {
 	Data struct {

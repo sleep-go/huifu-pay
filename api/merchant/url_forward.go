@@ -39,13 +39,14 @@ type V2MerchantUrlForwardRequest struct {
 	ReqDate      string `json:"req_date"`
 	UpperHuifuId string `json:"upper_huifu_id"`
 	StoreId      string `json:"store_id"` //门店号	String	64	Y	门店号，示例值：SH001
-	ExtendInfos  struct {
-		Phone           string `json:"phone"`             //手机号	String	11	N	手机号；示例值：13917352618
-		Expires         string `json:"expires"`           //跳转地址失效时间	String	5	N	单位毫秒；示例值：50000
-		BackPageUrl     string `json:"back_page_url"`     //返回页面URL	String	256	N	进件完成后回跳指定页面。http或https开头； 示例值：http://service.huifu.com/xxx?grantsId=xx&encryptMsg=xxxx
-		AsyncReceiveUrl string `json:"async_receive_url"` //异步接收URL	String	256	N	消息接收地址，示例值：http://service.example.com/to/path
-		TemplateId      string `json:"template_id"`       //模版编号	String	20	N	服务商控制台，商户入驻费率模版列表中模版编号；示例值：155677
-	}
+	ExtendInfos  V2MerchantUrlForwardExtendInfos
+}
+type V2MerchantUrlForwardExtendInfos struct {
+	Phone           string //手机号	String	11	N	手机号；示例值：13917352618
+	Expires         string //跳转地址失效时间	String	5	N	单位毫秒；示例值：50000
+	BackPageUrl     string //返回页面URL	String	256	N	进件完成后回跳指定页面。http或https开头； 示例值：http://service.huifu.com/xxx?grantsId=xx&encryptMsg=xxxx
+	AsyncReceiveUrl string //异步接收URL	String	256	N	消息接收地址，示例值：http://service.example.com/to/path
+	TemplateId      string //模版编号	String	20	N	服务商控制台，商户入驻费率模版列表中模版编号；示例值：155677
 }
 type V2MerchantUrlForwardResponse struct {
 	Data struct {
