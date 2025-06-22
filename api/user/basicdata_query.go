@@ -2,6 +2,7 @@ package user
 
 import (
 	"github.com/huifurepo/bspay-go-sdk/BsPaySdk"
+	"github.com/sleep-go/huifu-pay/api/merchant"
 	"github.com/sleep-go/huifu-pay/common"
 )
 
@@ -29,13 +30,35 @@ type V2UserBasicdataQueryRequest struct {
 	ReqDate  string `json:"req_date"`
 	HuifuId  string `json:"huifu_id"`
 }
+type IndvBaseInfo struct {
+	CertBeginDate    string `json:"cert_begin_date"`
+	CertEndDate      string `json:"cert_end_date"`
+	CertNo           string `json:"cert_no"`
+	CertType         string `json:"cert_type"`
+	CertValidityType string `json:"cert_validity_type"`
+	Email            string `json:"email"`
+	FileList         []struct {
+		FileId   string `json:"file_id"`
+		FileName string `json:"file_name"`
+		FileType string `json:"file_type"`
+	} `json:"file_list"`
+	LoginName string `json:"login_name"`
+	MobileNo  string `json:"mobile_no"`
+	Name      string `json:"name"`
+}
 type V2UserBasicdataQueryResponse struct {
 	Data struct {
-		RespDesc      string `json:"resp_desc"`
-		RespCode      string `json:"resp_code"`
-		HuifuId       string `json:"huifu_id"`
-		LoginName     string `json:"login_name"`
-		LoginPassword string `json:"login_password"`
+		RespCode            string                                            `json:"resp_code"`
+		RespDesc            string                                            `json:"resp_desc"`
+		EntBaseInfo         string                                            `json:"ent_base_info"`
+		IndvBaseInfo        common.StringObject[IndvBaseInfo]                 `json:"indv_base_info"`
+		CardInfo            common.StringObject[CardInfo]                     `json:"card_info"`
+		SettleConfig        common.StringObject[SettleConfig]                 `json:"settle_config"`
+		QryCashConfigList   common.StringObject[[]merchant.QryCashConfigList] `json:"qry_cash_config_list"`
+		QryCashCardInfoList string                                            `json:"qry_cash_card_info_list"`
+		ElecAcctConfig      common.StringObject[ElecAcctConfig]               `json:"elec_acct_config"`
+		ElecReceiptConfig   common.StringObject[ElecReceiptConfig]            `json:"elec_receipt_config"`
+		SignUserInfo        common.StringObject[SignUserInfo]                 `json:"sign_user_info"`
 	} `json:"data"`
-	Sign string
+	Sign string `json:"sign"`
 }
