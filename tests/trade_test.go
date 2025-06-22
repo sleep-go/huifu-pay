@@ -11,7 +11,7 @@ import (
 var tr *trade.Trade
 
 func init() {
-	huifuPay := common.NewHuifuPay(true, "../../config/config.json")
+	huifuPay := common.NewHuifuPay(true, "../config/config.json")
 	tr = trade.NewTrade(huifuPay)
 }
 func TestJSpay(t *testing.T) {
