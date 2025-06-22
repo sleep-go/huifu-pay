@@ -826,3 +826,28 @@ const (
 	//6.线下场景需要额外提供店铺图片＋收单协议，
 	//下载模板
 )
+
+type TradeType string
+
+const (
+	// TradeType_T_JSAPI T_JSAPI: 微信公众号
+	TradeType_T_JSAPI TradeType = "T_JSAPI"
+	// TradeType_T_MINIAPP T_MINIAPP: 微信小程序
+	TradeType_T_MINIAPP TradeType = "T_MINIAPP"
+	// TradeType_A_JSAPI A_JSAPI: 支付宝JS
+	TradeType_A_JSAPI TradeType = "A_JSAPI"
+	// TradeType_A_NATIVE A_NATIVE: 支付宝正扫
+	TradeType_A_NATIVE TradeType = "A_NATIVE"
+	// TradeType_U_NATIVE U_NATIVE: 银联正扫
+	TradeType_U_NATIVE TradeType = "U_NATIVE"
+	// TradeType_U_JSAPI U_JSAPI: 银联JS
+	TradeType_U_JSAPI TradeType = "U_JSAPI"
+	// TradeType_D_NATIVE D_NATIVE: 数字人民币正扫
+	TradeType_D_NATIVE TradeType = "D_NATIVE"
+	// TradeType_T_H5 T_H5：微信直连H5支付
+	TradeType_T_H5 TradeType = "T_H5"
+	// TradeType_T_APP T_APP：微信APP支付
+	TradeType_T_APP TradeType = "T_APP"
+	// TradeType_T_NATIVE T_NATIVE：微信正扫
+	TradeType_T_NATIVE TradeType = "T_NATIVE"
+)

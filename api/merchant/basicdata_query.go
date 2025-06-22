@@ -6,14 +6,6 @@ import (
 	"github.com/sleep-go/huifu-pay/common"
 )
 
-type Merchant struct {
-	*common.HuifuPay
-}
-
-func NewMerchant(huifuPay *common.HuifuPay) *Merchant {
-	return &Merchant{HuifuPay: huifuPay}
-}
-
 // V2MerchantBasicdataQuery 商户详细信息查询
 func (bd *Merchant) V2MerchantBasicdataQuery() (res *V2MerchantBasicdataQueryResponse, raw string, err error) {
 	resp, err := bd.HuifuPay.BsPay.V2MerchantBasicdataQueryRequest(BsPaySdk.V2MerchantBasicdataQueryRequest{
