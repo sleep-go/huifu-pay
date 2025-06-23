@@ -20,7 +20,6 @@ func (t *Trade) V2TradeHostingPaymentPreorderH5(req V2TradeHostingPaymentPreorde
 		TransAmt:     req.TransAmt,
 		GoodsDesc:    req.GoodsDesc,
 		PreOrderType: "1",
-		HostingData:  req.HostingData.Encode(),
 		ExtendInfos:  common.StructToMapClean(req.ExtendInfos),
 	})
 	if err != nil {
@@ -30,12 +29,11 @@ func (t *Trade) V2TradeHostingPaymentPreorderH5(req V2TradeHostingPaymentPreorde
 }
 
 type V2TradeHostingPaymentPreorderH5Request struct {
-	ReqDate     string                           `json:"req_date"`     // 请求日期
-	ReqSeqId    string                           `json:"req_seq_id"`   // 请求流水号
-	HuifuId     string                           `json:"huifu_id"`     // 商户号
-	TransAmt    string                           `json:"trans_amt"`    // 交易金额
-	GoodsDesc   string                           `json:"goods_desc"`   // 商品描述
-	HostingData common.StringObject[HostingData] `json:"hosting_data"` // 半支付托管扩展参数集合
+	ReqDate     string `json:"req_date"`   // 请求日期
+	ReqSeqId    string `json:"req_seq_id"` // 请求流水号
+	HuifuId     string `json:"huifu_id"`   // 商户号
+	TransAmt    string `json:"trans_amt"`  // 交易金额
+	GoodsDesc   string `json:"goods_desc"` // 商品描述
 	ExtendInfos V2TradeHostingPaymentPreorderExtendInfo
 }
 type V2TradeHostingPaymentPreorderH5Response struct {

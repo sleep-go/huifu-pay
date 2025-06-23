@@ -133,14 +133,12 @@ func TestMapToStruct(t *testing.T) {
 	fmt.Printf("%+v\n", decode)
 }
 func TestPreorder(t *testing.T) {
-	response, raw, err := tr.V2TradeHostingPaymentPreorder(trade.V2TradeHostingPaymentPreorderRequest{
-		HuifuId:      tr.HuifuPay.BsPay.Msc.SysId,
-		ReqDate:      tool.GetCurrentDate(),
-		ReqSeqId:     tool.GetReqSeqId(),
-		PreOrderType: "1",
-		TransAmt:     "0.01",
-		GoodsDesc:    "test",
-		AppData:      "",
+	response, raw, err := tr.V2TradeHostingPaymentPreorderH5(trade.V2TradeHostingPaymentPreorderH5Request{
+		ReqDate:   tool.GetCurrentDate(),
+		ReqSeqId:  tool.GetReqSeqId(),
+		HuifuId:   tr.HuifuPay.BsPay.Msc.SysId,
+		TransAmt:  "0.01",
+		GoodsDesc: "test",
 		ExtendInfos: trade.V2TradeHostingPaymentPreorderExtendInfo{
 			HostingData: trade.HostingData{
 				ProjectTitle: "DPS鸽友宝",
