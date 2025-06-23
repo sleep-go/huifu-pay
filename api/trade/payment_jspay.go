@@ -174,9 +174,11 @@ type RiskCheckData struct {
 	//	- lbs_num：基站编号，16进制，5位长
 	//	- 注意若位数不足用空格补足；
 	//	示例值：460001039217563，其中460（mcc)， 00(mnc)，10392(location_cd)， 17563(lbs_num)
-	BaseStation string `json:"base_station"`
-	Latitude    string `json:"latitude"`  //纬度	String	32	N	格式：+表示北纬，-表示南纬。纬度整数位不超过2位，小数位不超过6位。示例值：+37.12； IP地址、经纬度、基站地址最少要送其中一项
-	Longitude   string `json:"longitude"` //经度	String	32	N	格式：+表示东经，-表示西经；经度整数位不超过3位，小数位不超过5位；示例值：-121.213；IP地址、经纬度、基站地址最少要送其中一项
+	BaseStation  string `json:"base_station"`
+	Latitude     string `json:"latitude"`  //纬度	String	32	N	格式：+表示北纬，-表示南纬。纬度整数位不超过2位，小数位不超过6位。示例值：+37.12； IP地址、经纬度、基站地址最少要送其中一项
+	Longitude    string `json:"longitude"` //经度	String	32	N	格式：+表示东经，-表示西经；经度整数位不超过3位，小数位不超过5位；示例值：-121.213；IP地址、经纬度、基站地址最少要送其中一项
+	SubProduct   string `json:"sub_product"`
+	TransferType string `json:"transfer_type"`
 }
 type TerminalDeviceData struct {
 	DeviceType    string `json:"device_type"`     //设备类型	String	2	N	1: 手机，2: 平板，3: 手表，4: PC；示例值：1

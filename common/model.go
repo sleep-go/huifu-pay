@@ -851,3 +851,8 @@ const (
 	// TradeType_T_NATIVE T_NATIVE：微信正扫
 	TradeType_T_NATIVE TradeType = "T_NATIVE"
 )
+
+type LjhData struct {
+	TaxAreaId  string //税源地id	String	13	C	当合作平台为乐接活，必填
+	TemplateId string //任务模板ID	String	64	N	任务模板ID。灵活用工平台为乐接活时必填！
+}

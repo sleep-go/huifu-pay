@@ -91,9 +91,6 @@ type CashConfig struct {
 	OutFeeAcctType    string `json:"out_fee_acct_type"`
 	IsPriorityReceipt string `json:"is_priority_receipt"` //是否优先到账	String	1	N	Y：是 ，N：否。不填，默认值为否。仅在取现类型配置为D1 和 T1 时生效。示例值：Y
 }
-type LjhData struct {
-	TaxAreaId string //税源地id	String	13	C	当合作平台为乐接活，必填
-}
 type ElecAcctConfig struct {
 	SwitchState       string `json:"switch_state"`          //电子账户开关	String	1	Y	电子账户开通总开关：0:关闭 1:开通
 	AcctType          string `json:"acct_type"`             //账户类型	String	2	Y	01：中信e管家
@@ -126,7 +123,7 @@ type V2UserBusiOpenExtendInfos struct {
 	OpenTaxFlag    string         `json:"open_tax_flag"`    //灵活用工开关	String	1	N	N：否（默认） Y：是；示例值：Y 1、个人证件类型必须为身份证类型。2、结算卡信息可不填；若填写则结算类型不能为对公，且结算账户名与个人姓名一致。
 	AsyncReturnUrl string         `json:"async_return_url"` //异步请求地址	String	128	N	为空时不推送异步消息 格式：http://消息接收地址，示例值：http://service.example.com/to/path
 	LgPlatformType string         `json:"lg_platform_type"` //合作平台	String	3	N	LJH-乐接活，HYC-汇优财 灵工业务开关为Y，不填则默认汇优财
-	LjhData        LjhData        `json:"ljh_data"`         //乐接活配置	String		C	当合作平台为乐接活，必填
+	LjhData        common.LjhData `json:"ljh_data"`         //乐接活配置	String		C	当合作平台为乐接活，必填
 }
 type V2UserBusiOpenResponse struct {
 	Data struct {

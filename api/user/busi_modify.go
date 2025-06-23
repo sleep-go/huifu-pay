@@ -57,7 +57,7 @@ type V2UserBusiModifyExtendInfos struct {
 	OpenTaxFlag       string            `json:"open_tax_flag"`    //灵活用工开关	String	1	N	N：否（默认） Y：是；示例值：Y 1、个人证件类型必须为身份证类型。2、结算卡信息可不填；若填写则结算类型不能为对公，且结算账户名与个人姓名一致。
 	AsyncReturnUrl    string            `json:"async_return_url"` //异步请求地址	String	128	N	为空时不推送异步消息 格式：http://消息接收地址，示例值：http://service.example.com/to/path
 	LgPlatformType    string            `json:"lg_platform_type"` //合作平台	String	3	N	LJH-乐接活，HYC-汇优财 灵工业务开关为Y，不填则默认汇优财
-	LjhData           LjhData           `json:"ljh_data"`         //乐接活配置	String		C	当合作平台为乐接活，必填
+	LjhData           common.LjhData    `json:"ljh_data"`         //乐接活配置	String		C	当合作平台为乐接活，必填
 	ElecReceiptConfig ElecReceiptConfig `json:"elec_receipt_config"`
 	SignUserInfo      SignUserInfo
 }
