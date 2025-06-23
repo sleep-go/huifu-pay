@@ -372,6 +372,7 @@ type V3TradePaymentJspayNotifyMessageRespData struct {
 	TransDate        string         `json:"trans_date"`
 	TransTime        string         `json:"trans_time"`
 	TradeType        string         `json:"trade_type"`
+	TransFinishTime  string         `json:"trans_finish_time"`
 }
 
 // V3TradePaymentJspayUnfreezeNotifyMessage 解冻异步返回参数

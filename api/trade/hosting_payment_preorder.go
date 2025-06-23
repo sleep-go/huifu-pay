@@ -273,7 +273,6 @@ type V2TradeHostingPaymentPreorderMessage struct {
 type V2TradeHostingPaymentPreorderMessageRespData struct {
 	V3TradePaymentJspayNotifyMessageRespData
 	DebitFlag       string `json:"debit_flag"`
-	TransFinishTime string `json:"trans_finish_time"`
 	UserHuifuId     string `json:"user_huifu_id"`
 	BankId          string `json:"bank_id"`
 	BankExtendParam string `json:"bank_extend_param"`
