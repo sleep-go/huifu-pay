@@ -69,11 +69,16 @@ func StructToMapClean(v any) map[string]any {
 		if field.IsZero() {
 			continue
 		}
-		marshal, err := json.Marshal(field.Interface())
-		if err != nil {
-			continue
+		// 获取字段值
+		var value any
+		switch field.Kind() {
+		case reflect.Struct, reflect.Slice, reflect.Array, reflect.Map:
+			bs, _ := json.Marshal(field.Interface())
+			value = string(bs)
+		default:
+			value = field.Interface()
 		}
-		out[key] = string(marshal)
+		out[key] = value
 	}
 	return out
 }
