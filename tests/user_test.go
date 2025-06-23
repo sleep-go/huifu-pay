@@ -148,7 +148,6 @@ func TestV2UserBusiOpen(t *testing.T) {
 			OpenTaxFlag:    "",
 			AsyncReturnUrl: "",
 			LgPlatformType: "",
-			LjhData:        struct{ TaxAreaId string }{},
 		},
 	})
 	if err != nil {

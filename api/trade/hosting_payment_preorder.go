@@ -156,6 +156,10 @@ type V2TradeHostingPaymentPreorderWxResponse struct {
 
 // V2TradeHostingPaymentPreorder 预下单统一接口 (上面3个接口的整合)
 func (t *Trade) V2TradeHostingPaymentPreorder(req V2TradeHostingPaymentPreorderRequest) (res *V2TradeHostingPaymentPreorderResponse, raw string, err error) {
+	app := ""
+	if req.AppData != "" {
+		app = req.AppData.Encode()
+	}
 	resp, err := t.HuifuPay.BsPay.V2TradeHostingPaymentPreorderRequest(BsPaySdk.V2TradeHostingPaymentPreorderRequest{
 		HuifuId:      req.HuifuId,
 		ReqDate:      req.ReqDate,
@@ -163,7 +167,7 @@ func (t *Trade) V2TradeHostingPaymentPreorder(req V2TradeHostingPaymentPreorderR
 		PreOrderType: req.PreOrderType,
 		TransAmt:     req.TransAmt,
 		GoodsDesc:    req.GoodsDesc,
-		AppData:      req.AppData.Encode(),
+		AppData:      app,
 		ExtendInfos:  common.StructToMapClean(req.ExtendInfos),
 	})
 	if err != nil {
