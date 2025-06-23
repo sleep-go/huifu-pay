@@ -196,6 +196,7 @@ type HostingData struct {
 	CallbackUrl  string `json:"callback_url,omitempty"`  //回调地址	String	512	N	若不填，支付成功后停留在当前页面，填写后跳转回指定地址；示例值：https://paas.huifu.com
 	RequestType  string `json:"request_type,omitempty"`  //请求类型	String	1	C	P:PC页面版，默认：P；M:H5页面版；指定交易类型时必填；示例值：M
 }
+
 type BizInfo struct {
 	PayerCheckAli struct {
 		NeedCheckInfo string //是否提供校验身份信息	String	1	N	T：强制校验，需要填写person_payer字段；F：不强制；示例值：T

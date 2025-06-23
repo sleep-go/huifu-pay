@@ -142,7 +142,10 @@ func TestPreorder(t *testing.T) {
 		GoodsDesc:    "test",
 		AppData:      "",
 		ExtendInfos: trade.V2TradeHostingPaymentPreorderExtendInfo{
-			HostingData: trade.HostingData{},
+			HostingData: trade.HostingData{
+				ProjectTitle: "DPS鸽友宝",
+				ProjectId:    "PROJECTID2025052737557820",
+			},
 		},
 	})
 	if err != nil {

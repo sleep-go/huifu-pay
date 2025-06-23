@@ -69,7 +69,11 @@ func StructToMapClean(v any) map[string]any {
 		if field.IsZero() {
 			continue
 		}
-		out[key] = field.Interface()
+		marshal, err := json.Marshal(field.Interface())
+		if err != nil {
+			continue
+		}
+		out[key] = string(marshal)
 	}
 	return out
 }
