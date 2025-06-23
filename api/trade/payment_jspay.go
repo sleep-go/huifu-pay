@@ -306,75 +306,66 @@ type V3TradePaymentJspayNotifyMessageRespData struct {
 		NoAllowanceDesc         string `json:"no_allowance_desc"`
 		CurAllowanceConfigInfos string `json:"cur_allowance_config_infos"`
 	} `json:"trans_fee_allowance_info"`
-	CombinedpayData  []CombinedpayData `json:"combinedpay_data"`
-	DebitType        string            `json:"debit_type"`
-	IsDiv            string            `json:"is_div"`
-	AcctSplitBunch   AcctSplitBunch    `json:"acct_split_bunch"`
-	IsDelayAcct      string            `json:"is_delay_acct"`
-	WxUserId         string            `json:"wx_user_id"`
-	WxResponse       WxResponse        `json:"wx_response"`
-	AlipayResponse   AlipayResponse    `json:"alipay_response"`
-	DcResponse       DcResponse        `json:"dc_response"`
-	UnionpayResponse struct {
-		CouponInfo []struct {
-			AddnInfo string `json:"addn_info,omitempty"` //附加信息	String	100	N	内容自定义；示例值：附加信息
-			SpnsrId  string `json:"spnsr_id,omitempty"`  //出资方	String	20	Y	00010000：银联出资 付款方作为出资方：填写8位付款方机构代码 商户作为出资方：填写15位商户代码 示例值：00010000
-			Type     string `json:"type,omitempty"`      //项目类型	String	4	Y	DD01：随机立减 CP01：抵金券1：无需领取，交易时直接适配并承兑的优惠券 CP02：抵金券2：事前领取，交易时上送银联并承兑的优惠券 示例值：DD01
-			OffstAmt string `json:"offst_amt,omitempty"` //抵消交易金额	String	14	Y	不能为全0；示例值：1.00
-			ID       string `json:"id,omitempty"`        //项目编号	String	40	N	用于票券编号等，格式自定义；示例值：938434221
-			Desc     string `json:"desc,omitempty"`      //项目简称	String	40	N	优惠活动简称，可用于展示、打单等；示例值：中秋优惠促销
-		} `json:"coupon_info"`
-	} `json:"unionpay_response"`
-	DeviceType       string         `json:"device_type"`
-	MerDevLocation   MerDevLocation `json:"mer_dev_location"`
-	BankCode         string         `json:"bank_code"`
-	Remark           string         `json:"remark"`
-	FqChannels       string         `json:"fq_channels"`
-	NotifyType       string         `json:"notify_type"`
-	SplitFeeInfo     SplitFeeInfo   `json:"split_fee_info"`
-	AtuSubMerId      string         `json:"atu_sub_mer_id"`
-	DevsId           string         `json:"devs_id"`
-	FundFreezeStat   string         `json:"fund_freeze_stat"`
-	AcctStat         string         `json:"acct_stat"`
-	AcctId           string         `json:"acct_id"`
-	AvoidSmsFlag     string         `json:"avoid_sms_flag"`
-	BagentId         string         `json:"bagent_id"`
-	BankDesc         string         `json:"bank_desc"`
-	BankMessage      string         `json:"bank_message"`
-	BankOrderNo      string         `json:"bank_order_no"`
-	BankSeqId        string         `json:"bank_seq_id"`
-	BaseAcctId       string         `json:"base_acct_id"`
-	BatchId          string         `json:"batch_id"`
-	ChannelType      string         `json:"channel_type"`
-	DelayAcctFlag    string         `json:"delay_acct_flag"`
-	DivFlag          string         `json:"div_flag"`
-	FeeAmt           string         `json:"fee_amt"`
-	FeeRecType       string         `json:"fee_rec_type"`
-	FeeType          string         `json:"fee_type"`
-	GateId           string         `json:"gate_id"`
-	MazeRespCode     string         `json:"maze_resp_code"`
-	MerName          string         `json:"mer_name"`
-	MerOrdId         string         `json:"mer_ord_id"`
-	MypaytsfDiscount string         `json:"mypaytsf_discount"`
-	NeedBigObject    bool           `json:"need_big_object"`
-	OrgAuthNo        string         `json:"org_auth_no"`
-	OrgHuifuSeqId    string         `json:"org_huifu_seq_id"`
-	OrgTransDate     string         `json:"org_trans_date"`
-	OutOrdId         string         `json:"out_ord_id"`
-	PayScene         string         `json:"pay_scene"`
-	PospSeqId        string         `json:"posp_seq_id"`
-	ProductId        string         `json:"product_id"`
-	RefNo            string         `json:"ref_no"`
-	RiskCheckData    RiskCheckData  `json:"risk_check_data"`
-	RiskCheckInfo    string         `json:"risk_check_info"`
-	SubRespCode      string         `json:"sub_resp_code"`
-	SubRespDesc      string         `json:"sub_resp_desc"`
-	SubsidyStat      string         `json:"subsidy_stat"`
-	SysId            string         `json:"sys_id"`
-	TransDate        string         `json:"trans_date"`
-	TransTime        string         `json:"trans_time"`
-	TradeType        string         `json:"trade_type"`
-	TransFinishTime  string         `json:"trans_finish_time"`
+	CombinedpayData  []CombinedpayData       `json:"combinedpay_data"`
+	DebitType        string                  `json:"debit_type"`
+	IsDiv            string                  `json:"is_div"`
+	AcctSplitBunch   AcctSplitBunch          `json:"acct_split_bunch"`
+	IsDelayAcct      string                  `json:"is_delay_acct"`
+	WxUserId         string                  `json:"wx_user_id"`
+	WxResponse       WxResponse              `json:"wx_response"`
+	AlipayResponse   AlipayResponse          `json:"alipay_response"`
+	DcResponse       DcResponse              `json:"dc_response"`
+	UnionpayResponse common.UnionpayResponse `json:"unionpay_response"`
+	DeviceType       string                  `json:"device_type"`
+	MerDevLocation   MerDevLocation          `json:"mer_dev_location"`
+	BankCode         string                  `json:"bank_code"`
+	Remark           string                  `json:"remark"`
+	FqChannels       string                  `json:"fq_channels"`
+	NotifyType       string                  `json:"notify_type"`
+	SplitFeeInfo     SplitFeeInfo            `json:"split_fee_info"`
+	AtuSubMerId      string                  `json:"atu_sub_mer_id"`
+	DevsId           string                  `json:"devs_id"`
+	FundFreezeStat   string                  `json:"fund_freeze_stat"`
+	AcctStat         string                  `json:"acct_stat"`
+	AcctId           string                  `json:"acct_id"`
+	AvoidSmsFlag     string                  `json:"avoid_sms_flag"`
+	BagentId         string                  `json:"bagent_id"`
+	BankDesc         string                  `json:"bank_desc"`
+	BankMessage      string                  `json:"bank_message"`
+	BankOrderNo      string                  `json:"bank_order_no"`
+	BankSeqId        string                  `json:"bank_seq_id"`
+	BaseAcctId       string                  `json:"base_acct_id"`
+	BatchId          string                  `json:"batch_id"`
+	ChannelType      string                  `json:"channel_type"`
+	DelayAcctFlag    string                  `json:"delay_acct_flag"`
+	DivFlag          string                  `json:"div_flag"`
+	FeeAmt           string                  `json:"fee_amt"`
+	FeeRecType       string                  `json:"fee_rec_type"`
+	FeeType          string                  `json:"fee_type"`
+	GateId           string                  `json:"gate_id"`
+	MazeRespCode     string                  `json:"maze_resp_code"`
+	MerName          string                  `json:"mer_name"`
+	MerOrdId         string                  `json:"mer_ord_id"`
+	MypaytsfDiscount string                  `json:"mypaytsf_discount"`
+	NeedBigObject    bool                    `json:"need_big_object"`
+	OrgAuthNo        string                  `json:"org_auth_no"`
+	OrgHuifuSeqId    string                  `json:"org_huifu_seq_id"`
+	OrgTransDate     string                  `json:"org_trans_date"`
+	OutOrdId         string                  `json:"out_ord_id"`
+	PayScene         string                  `json:"pay_scene"`
+	PospSeqId        string                  `json:"posp_seq_id"`
+	ProductId        string                  `json:"product_id"`
+	RefNo            string                  `json:"ref_no"`
+	RiskCheckData    RiskCheckData           `json:"risk_check_data"`
+	RiskCheckInfo    string                  `json:"risk_check_info"`
+	SubRespCode      string                  `json:"sub_resp_code"`
+	SubRespDesc      string                  `json:"sub_resp_desc"`
+	SubsidyStat      string                  `json:"subsidy_stat"`
+	SysId            string                  `json:"sys_id"`
+	TransDate        string                  `json:"trans_date"`
+	TransTime        string                  `json:"trans_time"`
+	TradeType        string                  `json:"trade_type"`
+	TransFinishTime  string                  `json:"trans_finish_time"`
 }
 
 // V3TradePaymentJspayUnfreezeNotifyMessage 解冻异步返回参数

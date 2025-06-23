@@ -70,7 +70,7 @@ type V3TradePaymentScanpayQueryResponse struct {
 		WxUserId                  string                                                               `json:"wx_user_id"`
 		WxResponse                common.StringObject[WxResponse]                                      `json:"wx_response"`
 		AlipayResponse            common.StringObject[AlipayResponse]                                  `json:"alipay_response"`
-		UnionpayResponse          string                                                               `json:"unionpay_response"`
+		UnionpayResponse          common.StringObject[common.UnionpayResponse]                         `json:"unionpay_response"`
 		DivFlag                   string                                                               `json:"div_flag"`
 		AcctSplitBunch            common.StringObject[V3TradePaymentScanpayQueryAcctSplitBunch]        `json:"acct_split_bunch"`
 		SplitFeeInfo              common.StringObject[SplitFeeInfo]                                    `json:"split_fee_info"`
