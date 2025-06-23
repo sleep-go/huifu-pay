@@ -1,6 +1,6 @@
 module github.com/sleep-go/huifu-pay
 
-go 1.22
+go 1.23
 
 require (
 	github.com/duke-git/lancet/v2 v2.3.6
@@ -9,6 +9,5 @@ require (
 
 require (
 	github.com/fatih/structs v1.1.0 // indirect
-	golang.org/x/text v0.9.0 // indirect
-
+	golang.org/x/text v0.15.0 // indirect
 )
