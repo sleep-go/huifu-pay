@@ -6,6 +6,11 @@ https://paas.huifu.com/open/doc/api
 ### 三方库
 https://www.golancet.cn/
 
+### 安装
+```shell
+go get -u github.com/sleep-go/huifu-pay
+```
+
 ### 下单
 ```go
 package tests
