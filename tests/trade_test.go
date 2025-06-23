@@ -31,12 +31,13 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 		return
 	}
-	callback, raw, err := common.ParseCallbackRespData[trade.V3TradePaymentJspayNotifyMessage](r, tr.HuifuPay.BsPay.Msc)
+	callback, raw, err := common.ParseCallbackRespData[trade.V2TradeHostingPaymentPreorderMessage](r, tr.HuifuPay.BsPay.Msc)
 	if err != nil {
 		return
 	}
+	decode := callback.RespData.Decode()
 	_ = fileutil.WriteStringToFile("./callback.json", raw, false)
-	fmt.Printf("======info=======\n%+v\n", callback.RespData.Decode())
+	fmt.Printf("======info=======\n%+v\n", decode)
 	// 回复对方
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))

@@ -20,10 +20,15 @@ import (
 
 type StringDecoder[T any] interface {
 	Decode() T
+	Encode() string
 }
 
 type StringObject[T any] string
 
+func (o StringObject[T]) Encode() string {
+	marshal, _ := json.Marshal(o)
+	return string(marshal)
+}
 func (o StringObject[T]) Decode() T {
 	var res T
 	_ = json.Unmarshal([]byte(o), &res)
@@ -41,7 +46,7 @@ func HandleResponse[T any](resp map[string]any) (out *T, raw string, err error) 
 	return out, string(marshal), nil
 }
 
-func StructToMapClean(v any) map[string]interface{} {
+func StructToMapClean(v any) map[string]any {
 	out := make(map[string]interface{})
 	val := reflect.ValueOf(v)
 	if val.Kind() == reflect.Ptr {
