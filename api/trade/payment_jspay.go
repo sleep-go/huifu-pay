@@ -150,7 +150,7 @@ type DcData struct {
 	DigitalBankNo string `json:"digital_bank_no"` //数字货币银行编号	String	5	N	01002: 工行，01004: 中行， 01005: 建行，01008：邮储
 }
 type AcctSplitBunch struct {
-	AcctInfos struct {
+	AcctInfos []struct {
 		DivAmt        string `json:"div_amt"`        //分账金额	String	14	N	单位元，需保留小数点后两位，示例值：1.00 ，最低传入0.01
 		HuifuId       string `json:"huifu_id"`       //分账接收方ID	String	32	Y	斗拱开户时生成；示例值：6666000123120001
 		AcctId        string `json:"acct_id"`        //账户号	String	9	N	可指定账户号，仅支持基本户、现金户，不填默认为基本户；示例值：F00598600
