@@ -38,7 +38,6 @@ type V3TradePaymentScanpayQueryRequest struct {
 	OrgReqSeqId string `json:"org_req_seq_id"`
 	ExtendInfos V3TradePaymentScanpayQueryExtendInfos
 }
-
 type V3TradePaymentScanpayQueryResponse struct {
 	Data struct {
 		RespCode                  string                                                               `json:"resp_code"`

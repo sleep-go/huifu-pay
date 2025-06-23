@@ -30,7 +30,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 		return
 	}
-	callback, raw, err := common.ParseCallback[map[string]any](r, tr.HuifuPay.BsPay.Msc)
+	callback, raw, err := common.ParseCallbackRespData[map[string]any](r, tr.HuifuPay.BsPay.Msc)
 	if err != nil {
 		return
 	}
@@ -67,6 +67,24 @@ func TestV3TradePaymentScanpayQuery(t *testing.T) {
 		OutOrdId:    "",
 		OrgHfSeqId:  "0056default250618150144P870ac1367c100000",
 		OrgReqSeqId: "RH20250618150110504170",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	_ = fileutil.WriteStringToFile("./1.json", raw, false)
+	fmt.Printf("======info=======\n%+v\n", response)
+}
+
+func TestV2TradePaymentScanpayClose(t *testing.T) {
+	response, raw, err := tr.V2TradePaymentScanpayClose(trade.V2TradePaymentScanpayCloseRequest{
+		ReqDate:    tool.GetCurrentDate(),
+		ReqSeqId:   tool.GetReqSeqId(),
+		HuifuId:    tr.HuifuPay.BsPay.Msc.SysId,
+		OrgReqDate: "20250623",
+		ExtendInfos: trade.V3TradePaymentScanpayCloseExtendInfos{
+			OrgHfSeqId:  "",
+			OrgReqSeqId: "202506230927021853",
+		},
 	})
 	if err != nil {
 		log.Fatal(err)

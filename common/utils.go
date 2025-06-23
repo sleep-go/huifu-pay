@@ -68,8 +68,38 @@ func StructToMapClean(v any) map[string]interface{} {
 	return out
 }
 
-// ParseCallback 解析回调通知
-func ParseCallback[T any](r *http.Request, msc *BsPaySdk.MerchSysConfig) (resp *T, raw string, err error) {
+// ParseCallbackRespData 解析回调通知
+func ParseCallbackRespData[T any](r *http.Request, msc *BsPaySdk.MerchSysConfig) (resp *T, raw string, err error) {
+	res, body, err := parseQueryToMap(r)
+	if err != nil {
+		return nil, "", err
+	}
+	// 验签
+	sign, err := BsPaySdk.RsaSignVerify(res["sign"].(string), res["resp_data"].(string), msc)
+	if err != nil {
+		return nil, body, err
+	}
+	if !sign {
+		return nil, body, errors.New("check signature error")
+	}
+	return HandleResponse[T](res)
+}
+func ParseCallbackData[T any](r *http.Request, msc *BsPaySdk.MerchSysConfig) (resp *T, raw string, err error) {
+	res, body, err := parseQueryToMap(r)
+	if err != nil {
+		return nil, "", err
+	}
+	// 验签
+	sign, err := BsPaySdk.RsaSignVerify(res["sign"].(string), res["data"].(string), msc)
+	if err != nil {
+		return nil, body, err
+	}
+	if !sign {
+		return nil, body, errors.New("check signature error")
+	}
+	return HandleResponse[T](res)
+}
+func parseQueryToMap(r *http.Request) (res map[string]any, raw string, err error) {
 	if r.Method != http.MethodPost {
 		return nil, "", errors.New("method Not Allowed")
 	}
@@ -83,22 +113,15 @@ func ParseCallback[T any](r *http.Request, msc *BsPaySdk.MerchSysConfig) (resp *
 	if err != nil {
 		return nil, "", errors.New(fmt.Sprintf("解析参数字符串失败: %s", err))
 	}
-	res := make(map[string]any)
+	res = make(map[string]any)
 	for key, values := range params {
 		if len(values) > 0 {
 			res[key] = values[0]
 		}
 	}
-	// 验签
-	sign, err := BsPaySdk.RsaSignVerify(res["sign"].(string), res["resp_data"].(string), msc)
-	if err != nil {
-		return nil, string(body), err
-	}
-	if !sign {
-		return nil, string(body), errors.New("check signature error")
-	}
-	return HandleResponse[T](res)
+	return res, string(body), nil
 }
+
 func Encrypt(content string, msc *BsPaySdk.MerchSysConfig) (string, error) {
 	pubKey, err := getPublicKey(msc)
 	if err != nil {
