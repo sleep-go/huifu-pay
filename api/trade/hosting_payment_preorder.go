@@ -186,11 +186,11 @@ type AppData struct {
 	PrivateInfo string //	私有信息	String	255	N	对应异步通知和主动查询接口中的remark字段；示例值：收取服务费
 }
 type HostingData struct {
-	ProjectTitle string //项目标题	String	64	Y	用于账单页面显示；示例值：汇付收银台
-	ProjectId    string //半支付托管项目号	String	32	Y	商户创建的半支付托管项目号；示例值：PROJECTID2022032912492559
-	PrivateInfo  string //商户私有信息	String	255	N	对应异步通知和主动查询接口中的remark字段；示例值：收取服务费
-	CallbackUrl  string //回调地址	String	512	N	若不填，支付成功后停留在当前页面，填写后跳转回指定地址；示例值：https://paas.huifu.com
-	RequestType  string //请求类型	String	1	C	P:PC页面版，默认：P；M:H5页面版；指定交易类型时必填；示例值：M
+	ProjectTitle string `json:"project_title"` //项目标题	String	64	Y	用于账单页面显示；示例值：汇付收银台
+	ProjectId    string `json:"project_id"`    //半支付托管项目号	String	32	Y	商户创建的半支付托管项目号；示例值：PROJECTID2022032912492559
+	PrivateInfo  string `json:"private_info"`  //商户私有信息	String	255	N	对应异步通知和主动查询接口中的remark字段；示例值：收取服务费
+	CallbackUrl  string `json:"callback_url"`  //回调地址	String	512	N	若不填，支付成功后停留在当前页面，填写后跳转回指定地址；示例值：https://paas.huifu.com
+	RequestType  string `json:"request_type"`  //请求类型	String	1	C	P:PC页面版，默认：P；M:H5页面版；指定交易类型时必填；示例值：M
 }
 type BizInfo struct {
 	PayerCheckAli struct {

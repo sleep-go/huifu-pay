@@ -26,7 +26,8 @@ type StringDecoder[T any] interface {
 type StringObject[T any] string
 
 func (o StringObject[T]) Encode() string {
-	marshal, _ := json.Marshal(o)
+	res := StructToMapClean(o)
+	marshal, _ := json.Marshal(res)
 	return string(marshal)
 }
 func (o StringObject[T]) Decode() T {

@@ -132,3 +132,22 @@ func TestMapToStruct(t *testing.T) {
 	decode := notify.RespData.Decode()
 	fmt.Printf("%+v\n", decode)
 }
+func TestPreorder(t *testing.T) {
+	response, raw, err := tr.V2TradeHostingPaymentPreorder(trade.V2TradeHostingPaymentPreorderRequest{
+		HuifuId:      tr.HuifuPay.BsPay.Msc.SysId,
+		ReqDate:      tool.GetCurrentDate(),
+		ReqSeqId:     tool.GetReqSeqId(),
+		PreOrderType: "1",
+		TransAmt:     "0.01",
+		GoodsDesc:    "test",
+		AppData:      "",
+		ExtendInfos: trade.V2TradeHostingPaymentPreorderExtendInfo{
+			HostingData: trade.HostingData{},
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	_ = fileutil.WriteStringToFile("./1.json", raw, false)
+	fmt.Printf("======info=======\n%+v\n", response)
+}
