@@ -215,16 +215,6 @@ type TransFeeAllowanceInfo struct {
 	//	2.补贴手续费金额大于该笔手续费金额时，按照该笔交易实际手续费金额补贴；
 	AllowanceFeeAmt string
 }
-type V3TradePaymentJspayRequest struct {
-	ReqDate     string           `json:"req_date"`
-	ReqSeqId    string           `json:"req_seq_id"`
-	HuifuId     string           `json:"huifu_id"`
-	AcctId      string           `json:"acct_id"`    //账户号	String	9	N	可指定收款账户号，仅支持基本户、现金户，不填默认为基本户； 示例值：F00598600
-	GoodsDesc   string           `json:"goods_desc"` //商品描述	String	127	Y	示例值：XX商品
-	TradeType   common.TradeType `json:"trade_type"` //交易类型	String	16	Y
-	TransAmt    string           `json:"trans_amt"`
-	ExtendInfos V3TradePaymentJspayExtendInfos
-}
 type V3TradePaymentJspayExtendInfos struct {
 	TimeExpire            string                `json:"time_expire"`
 	WxData                WxData                `json:"wx_data"`
@@ -235,7 +225,7 @@ type V3TradePaymentJspayExtendInfos struct {
 	FeeFlag               string                `json:"fee_flag"`
 	AcctSplitBunch        AcctSplitBunch        `json:"acct_split_bunch,omitempty"`
 	TermDivCouponType     string                `json:"term_div_coupon_type"` //传入分账遇到优惠的处理规则	Integer	1	N	1: 按比例分，2: 按分账明细顺序保障，3: 只给交易商户（默认)；示例值：1
-	CombinedpayData       CombinedpayData       `json:"combinedpay_data"`
+	CombinedpayData       []CombinedpayData     `json:"combinedpay_data"`
 	LimitPayType          string                `json:"limit_pay_type"` //禁用信用卡标记	String	128	N	本次交易禁止使用的支付方式，默认不禁用；取值参见说明；示例值：NO_CREDIT
 	FqMerDiscountFlag     string                `json:"fq_mer_discount_flag"`
 	ChannelNo             string                `json:"channel_no"`
@@ -246,7 +236,16 @@ type V3TradePaymentJspayExtendInfos struct {
 	NotifyUrl             string                `json:"notify_url"`
 	TransFeeAllowanceInfo TransFeeAllowanceInfo `json:"trans_fee_allowance_info"`
 }
-
+type V3TradePaymentJspayRequest struct {
+	ReqDate     string           `json:"req_date"`
+	ReqSeqId    string           `json:"req_seq_id"`
+	HuifuId     string           `json:"huifu_id"`
+	AcctId      string           `json:"acct_id"`    //账户号	String	9	N	可指定收款账户号，仅支持基本户、现金户，不填默认为基本户； 示例值：F00598600
+	GoodsDesc   string           `json:"goods_desc"` //商品描述	String	127	Y	示例值：XX商品
+	TradeType   common.TradeType `json:"trade_type"` //交易类型	String	16	Y
+	TransAmt    string           `json:"trans_amt"`
+	ExtendInfos V3TradePaymentJspayExtendInfos
+}
 type V3TradePaymentJspayResponse struct {
 	Data struct {
 		RespCode     string           `json:"resp_code"`
@@ -268,4 +267,130 @@ type V3TradePaymentJspayResponse struct {
 		UnconfirmAmt string           `json:"unconfirm_amt"`  //待确认金额	String	14	N	待确认金额；单位元。示例值：1.00
 	} `json:"data"`
 	Sign string `json:"sign"`
+}
+
+// V3TradePaymentJspayNotifyMessage 异步返回参数
+type V3TradePaymentJspayNotifyMessage struct {
+	RespCode string                                                        `json:"resp_code"`
+	RespData common.StringObject[V3TradePaymentJspayNotifyMessageRespData] `json:"resp_data"`
+	RespDesc string                                                        `json:"resp_desc"`
+	Sign     string                                                        `json:"sign"`
+}
+type V3TradePaymentJspayNotifyMessageRespData struct {
+	RespCode              string            `json:"resp_code"`
+	RespDesc              string            `json:"resp_desc"`
+	HuifuId               string            `json:"huifu_id"`
+	ReqSeqId              string            `json:"req_seq_id"`
+	ReqDate               string            `json:"req_date"`
+	TransType             string            `json:"trans_type"`
+	HfSeqId               string            `json:"hf_seq_id"`
+	OutTransId            string            `json:"out_trans_id"`
+	PartyOrderId          string            `json:"party_order_id"`
+	TransAmt              string            `json:"trans_amt"`
+	PayAmt                string            `json:"pay_amt"`
+	SettlementAmt         string            `json:"settlement_amt"`
+	EndTime               string            `json:"end_time"`
+	AcctDate              string            `json:"acct_date"`
+	TransStat             string            `json:"trans_stat"`
+	FeeFlag               int               `json:"fee_flag"`
+	FeeFormulaInfos       []FeeFormulaInfos `json:"fee_formula_infos"`
+	FeeAmount             string            `json:"fee_amount"`
+	CombinedpayFeeAmt     string            `json:"combinedpay_fee_amt"`
+	TransFeeAllowanceInfo struct {
+		ReceivableFeeAmt        string `json:"receivable_fee_amt"`
+		ActualFeeAmt            string `json:"actual_fee_amt"`
+		AllowanceFeeAmt         string `json:"allowance_fee_amt"`
+		AllowanceType           string `json:"allowance_type"`
+		NoAllowanceDesc         string `json:"no_allowance_desc"`
+		CurAllowanceConfigInfos string `json:"cur_allowance_config_infos"`
+	} `json:"trans_fee_allowance_info"`
+	CombinedpayData  []CombinedpayData `json:"combinedpay_data"`
+	DebitType        string            `json:"debit_type"`
+	IsDiv            string            `json:"is_div"`
+	AcctSplitBunch   AcctSplitBunch    `json:"acct_split_bunch"`
+	IsDelayAcct      string            `json:"is_delay_acct"`
+	WxUserId         string            `json:"wx_user_id"`
+	WxResponse       WxResponse        `json:"wx_response"`
+	AlipayResponse   AlipayResponse    `json:"alipay_response"`
+	DcResponse       DcResponse        `json:"dc_response"`
+	UnionpayResponse struct {
+		CouponInfo []struct {
+			AddnInfo string `json:"addn_info,omitempty"` //附加信息	String	100	N	内容自定义；示例值：附加信息
+			SpnsrId  string `json:"spnsr_id,omitempty"`  //出资方	String	20	Y	00010000：银联出资 付款方作为出资方：填写8位付款方机构代码 商户作为出资方：填写15位商户代码 示例值：00010000
+			Type     string `json:"type,omitempty"`      //项目类型	String	4	Y	DD01：随机立减 CP01：抵金券1：无需领取，交易时直接适配并承兑的优惠券 CP02：抵金券2：事前领取，交易时上送银联并承兑的优惠券 示例值：DD01
+			OffstAmt string `json:"offst_amt,omitempty"` //抵消交易金额	String	14	Y	不能为全0；示例值：1.00
+			ID       string `json:"id,omitempty"`        //项目编号	String	40	N	用于票券编号等，格式自定义；示例值：938434221
+			Desc     string `json:"desc,omitempty"`      //项目简称	String	40	N	优惠活动简称，可用于展示、打单等；示例值：中秋优惠促销
+		} `json:"coupon_info"`
+	} `json:"unionpay_response"`
+	DeviceType       string         `json:"device_type"`
+	MerDevLocation   MerDevLocation `json:"mer_dev_location"`
+	BankCode         string         `json:"bank_code"`
+	Remark           string         `json:"remark"`
+	FqChannels       string         `json:"fq_channels"`
+	NotifyType       string         `json:"notify_type"`
+	SplitFeeInfo     SplitFeeInfo   `json:"split_fee_info"`
+	AtuSubMerId      string         `json:"atu_sub_mer_id"`
+	DevsId           string         `json:"devs_id"`
+	FundFreezeStat   string         `json:"fund_freeze_stat"`
+	AcctStat         string         `json:"acct_stat"`
+	AcctId           string         `json:"acct_id"`
+	AvoidSmsFlag     string         `json:"avoid_sms_flag"`
+	BagentId         string         `json:"bagent_id"`
+	BankDesc         string         `json:"bank_desc"`
+	BankMessage      string         `json:"bank_message"`
+	BankOrderNo      string         `json:"bank_order_no"`
+	BankSeqId        string         `json:"bank_seq_id"`
+	BaseAcctId       string         `json:"base_acct_id"`
+	BatchId          string         `json:"batch_id"`
+	ChannelType      string         `json:"channel_type"`
+	DelayAcctFlag    string         `json:"delay_acct_flag"`
+	DivFlag          string         `json:"div_flag"`
+	FeeAmt           string         `json:"fee_amt"`
+	FeeRecType       string         `json:"fee_rec_type"`
+	FeeType          string         `json:"fee_type"`
+	GateId           string         `json:"gate_id"`
+	MazeRespCode     string         `json:"maze_resp_code"`
+	MerName          string         `json:"mer_name"`
+	MerOrdId         string         `json:"mer_ord_id"`
+	MypaytsfDiscount string         `json:"mypaytsf_discount"`
+	NeedBigObject    bool           `json:"need_big_object"`
+	OrgAuthNo        string         `json:"org_auth_no"`
+	OrgHuifuSeqId    string         `json:"org_huifu_seq_id"`
+	OrgTransDate     string         `json:"org_trans_date"`
+	OutOrdId         string         `json:"out_ord_id"`
+	PayScene         string         `json:"pay_scene"`
+	PospSeqId        string         `json:"posp_seq_id"`
+	ProductId        string         `json:"product_id"`
+	RefNo            string         `json:"ref_no"`
+	RiskCheckData    RiskCheckData  `json:"risk_check_data"`
+	RiskCheckInfo    string         `json:"risk_check_info"`
+	SubRespCode      string         `json:"sub_resp_code"`
+	SubRespDesc      string         `json:"sub_resp_desc"`
+	SubsidyStat      string         `json:"subsidy_stat"`
+	SysId            string         `json:"sys_id"`
+	TransDate        string         `json:"trans_date"`
+	TransTime        string         `json:"trans_time"`
+	TradeType        string         `json:"trade_type"`
+}
+
+// V3TradePaymentJspayUnfreezeNotifyMessage 解冻异步返回参数
+type V3TradePaymentJspayUnfreezeNotifyMessage struct {
+	RespCode string                                                                `json:"resp_code"`
+	RespData common.StringObject[V3TradePaymentJspayUnfreezeNotifyMessageRespData] `json:"resp_data"`
+	RespDesc string                                                                `json:"resp_desc"`
+	Sign     string
+}
+type V3TradePaymentJspayUnfreezeNotifyMessageRespData struct {
+	RespCode       string `json:"resp_code,omitempty"`        //业务返回码	String	8	Y	业务返回码
+	RespDesc       string `json:"resp_desc,omitempty"`        //业务返回描述	String	512	Y	业务返回描述
+	HfSeqId        string `json:"hf_seq_id,omitempty"`        //交易的汇付全局流水号	String	40	Y	示例值：00470topo1A221019132207P068ac1362af00000
+	ReqSeqId       string `json:"req_seq_id,omitempty"`       //交易请求流水号	String	128	Y	交易时传入，原样返回；示例值：rQ2021121311173944134649875651
+	ReqDate        string `json:"req_date,omitempty"`         //交易请求日期	String	8	Y	交易时传入，原样返回,格式为yyyyMMdd，示例值：20091225
+	HuifuId        string `json:"huifu_id,omitempty"`         //商户号	String	32	Y	示例值：6666000123120000
+	NotifyType     string `json:"notify_type,omitempty"`      //通知类型	Integer	1	Y	3：资金解冻通知；示例值：3
+	FundFreezeStat string `json:"fund_freeze_stat,omitempty"` //资金冻结状态	String	16	Y	UNFREEZE：解冻；示例值：UNFREEZE
+	UnfreezeAmt    string `json:"unfreeze_amt,omitempty"`     //解冻金额	String	14	Y	单元：元。示例值：1.23
+	FreezeTime     string `json:"freeze_time,omitempty"`      //冻结时间	String	14	Y	格式为yyyyMMddHHMMSS，示例值：20091225091010
+	UnfreezeTime   string `json:"unfreeze_time,omitempty"`    //解冻时间	String	14	Y	格式为yyyyMMddHHMMSS，示例值：20091225091010
 }

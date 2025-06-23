@@ -5,17 +5,8 @@ import (
 	"github.com/sleep-go/huifu-pay/common"
 )
 
-// V2TradePaymentScanpayClose 扫码交易关单
-// POST https://api.huifu.com/v2/trade/payment/scanpay/close
-//
-// 应用场景
-// 服务商/商户系统通过本接口发起订单关闭请求。
-//
-// 适用对象
-// 开通微信/支付宝权限的商户。
-// 注：银联、数字货币订单不支持关单；原交易已是终态（成功/失败）的，关单会失败。
-func (t *Trade) V2TradePaymentScanpayClose(req V2TradePaymentScanpayCloseRequest) (res *V2TradePaymentScanpayCloseResponse, raw string, err error) {
-	resp, err := t.HuifuPay.BsPay.V2TradePaymentScanpayCloseRequest(BsPaySdk.V2TradePaymentScanpayCloseRequest{
+func (t *Trade) V2TradePaymentScanpayCloseQuery(req V2TradePaymentScanpayCloseQueryRequest) (res *V2TradePaymentScanpayCloseQueryResponse, raw string, err error) {
+	resp, err := t.HuifuPay.BsPay.V2TradePaymentScanpayClosequeryRequest(BsPaySdk.V2TradePaymentScanpayClosequeryRequest{
 		ReqDate:     req.ReqDate,
 		ReqSeqId:    req.ReqSeqId,
 		HuifuId:     req.HuifuId,
@@ -25,21 +16,21 @@ func (t *Trade) V2TradePaymentScanpayClose(req V2TradePaymentScanpayCloseRequest
 	if err != nil {
 		return nil, "", err
 	}
-	return common.HandleResponse[V2TradePaymentScanpayCloseResponse](resp)
+	return common.HandleResponse[V2TradePaymentScanpayCloseQueryResponse](resp)
 }
 
-type V2TradePaymentScanpayCloseExtendInfos struct {
+type V2TradePaymentScanpayClosequeryExtendInfos struct {
 	OrgHfSeqId  string `json:"org_hf_seq_id"`
 	OrgReqSeqId string `json:"org_req_seq_id"`
 }
-type V2TradePaymentScanpayCloseRequest struct {
+type V2TradePaymentScanpayCloseQueryRequest struct {
 	ReqDate     string `json:"req_date"`
 	ReqSeqId    string `json:"req_seq_id"`
 	HuifuId     string `json:"huifu_id"`
 	OrgReqDate  string `json:"org_req_date"`
-	ExtendInfos V2TradePaymentScanpayCloseExtendInfos
+	ExtendInfos V2TradePaymentScanpayClosequeryExtendInfos
 }
-type V2TradePaymentScanpayCloseResponse struct {
+type V2TradePaymentScanpayCloseQueryResponse struct {
 	Data struct {
 		RespCode     string `json:"resp_code"`
 		RespDesc     string `json:"resp_desc"`

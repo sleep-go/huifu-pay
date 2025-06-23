@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -30,12 +31,12 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 		return
 	}
-	callback, raw, err := common.ParseCallbackRespData[map[string]any](r, tr.HuifuPay.BsPay.Msc)
+	callback, raw, err := common.ParseCallbackRespData[trade.V3TradePaymentJspayNotifyMessage](r, tr.HuifuPay.BsPay.Msc)
 	if err != nil {
 		return
 	}
 	_ = fileutil.WriteStringToFile("./callback.json", raw, false)
-	fmt.Printf("======info=======\n%+v\n", callback)
+	fmt.Printf("======info=======\n%+v\n", callback.RespData.Decode())
 	// 回复对方
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
@@ -72,7 +73,7 @@ func TestV3TradePaymentScanpayQuery(t *testing.T) {
 		log.Fatal(err)
 	}
 	_ = fileutil.WriteStringToFile("./1.json", raw, false)
-	fmt.Printf("======info=======\n%+v\n", response)
+	fmt.Printf("======info=======\n%+v\n", response.Data.AlipayResponse)
 }
 
 func TestV2TradePaymentScanpayClose(t *testing.T) {
@@ -81,7 +82,25 @@ func TestV2TradePaymentScanpayClose(t *testing.T) {
 		ReqSeqId:   tool.GetReqSeqId(),
 		HuifuId:    tr.HuifuPay.BsPay.Msc.SysId,
 		OrgReqDate: "20250623",
-		ExtendInfos: trade.V3TradePaymentScanpayCloseExtendInfos{
+		ExtendInfos: trade.V2TradePaymentScanpayCloseExtendInfos{
+			OrgHfSeqId:  "",
+			OrgReqSeqId: "202506230927021853",
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	_ = fileutil.WriteStringToFile("./1.json", raw, false)
+	fmt.Printf("======info=======\n%+v\n", response)
+}
+
+func TestV2TradePaymentScanpayCloseQuery(t *testing.T) {
+	response, raw, err := tr.V2TradePaymentScanpayCloseQuery(trade.V2TradePaymentScanpayCloseQueryRequest{
+		ReqDate:    tool.GetCurrentDate(),
+		ReqSeqId:   tool.GetReqSeqId(),
+		HuifuId:    tr.HuifuPay.BsPay.Msc.SysId,
+		OrgReqDate: "20250623",
+		ExtendInfos: trade.V2TradePaymentScanpayClosequeryExtendInfos{
 			OrgHfSeqId:  "",
 			OrgReqSeqId: "202506230927021853",
 		},
@@ -101,4 +120,14 @@ func TestParseUrl(t *testing.T) {
 	}
 
 	fmt.Println(values)
+}
+func TestMapToStruct(t *testing.T) {
+	ss := `{"resp_code":"00000000","resp_data":"{\"acct_id\":\"A44095264\",\"acct_split_bunch\":{\"acct_infos\":[{\"acct_id\":\"A44095264\",\"div_amt\":\"0.01\",\"huifu_id\":\"6666000168966991\"}],\"fee_acct_id\":\"A44095264\",\"fee_amt\":\"0.00\",\"fee_huifu_id\":\"6666000168966991\"},\"acct_stat\":\"I\",\"alipay_response\":{\"app_id\":\"\",\"buyer_id\":\"2088002691234702\",\"buyer_logon_id\":\"357***%40qq.com\",\"coupon_fee\":\"0.00\",\"fund_bill_list\":[{\"amount\":\"0.01\",\"fund_channel\":\"COUPON\"}]},\"atu_sub_mer_id\":\"2088470620283882\",\"avoid_sms_flag\":\"\",\"bagent_id\":\"6666000119490999\",\"bank_desc\":\"TRADE_SUCCESS\",\"bank_message\":\"TRADE_SUCCESS\",\"bank_order_no\":\"442025062322001434701432665315\",\"bank_seq_id\":\"231512\",\"base_acct_id\":\"A44095264\",\"batch_id\":\"250623\",\"channel_type\":\"U\",\"combinedpay_data\":[],\"combinedpay_fee_amt\":\"0.00\",\"debit_type\":\"0\",\"delay_acct_flag\":\"N\",\"div_flag\":\"0\",\"end_time\":\"20250623094848\",\"fee_amount\":\"0.00\",\"fee_amt\":\"0.00\",\"fee_flag\":2,\"fee_formula_infos\":[{\"fee_formula\":\"MAX(0.00,AMT*0.0025)\",\"fee_type\":\"TRANS_FEE\"}],\"fee_rec_type\":\"1\",\"fee_type\":\"INNER\",\"gate_id\":\"Vu\",\"hf_seq_id\":\"002900TOP4B250623094823P528ac136a2e00000\",\"huifu_id\":\"6666000168966991\",\"is_delay_acct\":\"0\",\"is_div\":\"0\",\"maze_resp_code\":\"\",\"mer_name\":\"天津纳兰云科技有限公司\",\"mer_ord_id\":\"202506230948231512\",\"mypaytsf_discount\":\"0.00\",\"need_big_object\":false,\"notify_type\":1,\"org_auth_no\":\"\",\"org_huifu_seq_id\":\"\",\"org_trans_date\":\"\",\"out_ord_id\":\"442025062322001434701432665315\",\"out_trans_id\":\"442025062322001434701432665315\",\"party_order_id\":\"03242506233530367608721\",\"pay_amt\":\"0.01\",\"pay_scene\":\"02\",\"posp_seq_id\":\"03242506233530367608721\",\"product_id\":\"PAYUN\",\"ref_no\":\"094823231512\",\"req_date\":\"20250623\",\"req_seq_id\":\"202506230948231512\",\"resp_code\":\"00000000\",\"resp_desc\":\"交易成功\",\"risk_check_data\":{},\"risk_check_info\":{},\"settlement_amt\":\"0.01\",\"sub_resp_code\":\"00000000\",\"sub_resp_desc\":\"交易成功\",\"subsidy_stat\":\"I\",\"sys_id\":\"6666000168966991\",\"trade_type\":\"A_NATIVE\",\"trans_amt\":\"0.01\",\"trans_date\":\"20250623\",\"trans_fee_allowance_info\":{\"actual_fee_amt\":\"0.00\",\"allowance_fee_amt\":\"0.00\",\"allowance_type\":\"0\",\"receivable_fee_amt\":\"0.00\"},\"trans_stat\":\"S\",\"trans_time\":\"094823\",\"trans_type\":\"A_NATIVE\"}","resp_desc":"交易成功[000]","sign":"FeTSkucePmSjaoRwDD0mMC/udNJMDzgKZUumtHhYYQ2g68NF557GOc8WBUXX9voiOAEG88KJn4SWzFcansmoNH39fQMfYsOH4De/zcnM0iASqDU+BMeNKpeqkWFtUa0Td+t/SSTwRIu5Ib7fTF5TzkapcNIfVdAjqXT9OafEHdNpA4mhgAOjw+Q+FrnAjidKApWncEJioPPAHCuFeyNVU/4VO/yEdWnGd4k0rCOXWVb9gLEBC9GcYNl3tBpRHZ9pI0KaO1UIOQlUxivx9DYBp2gsuqIseL3EigcyLOaD8rxpq6VoiVDxRN8dwzxOOi+09RpTx3t1gWj5ZzDph74kpg=="}`
+	var notify *trade.V3TradePaymentJspayNotifyMessage
+	err := json.Unmarshal([]byte(ss), &notify)
+	if err != nil {
+		t.Fatal(err)
+	}
+	decode := notify.RespData.Decode()
+	fmt.Printf("%+v\n", decode)
 }

@@ -74,7 +74,7 @@ type V3TradePaymentScanpayQueryResponse struct {
 		DivFlag                   string                                                               `json:"div_flag"`
 		AcctSplitBunch            common.StringObject[V3TradePaymentScanpayQueryAcctSplitBunch]        `json:"acct_split_bunch"`
 		SplitFeeInfo              common.StringObject[SplitFeeInfo]                                    `json:"split_fee_info"`
-		CombinedpayData           string                                                               `json:"combinedpay_data"`
+		CombinedpayData           common.StringObject[[]CombinedpayData]                               `json:"combinedpay_data"`
 		CombinedpayFeeAmt         string                                                               `json:"combinedpay_fee_amt"`
 		TransFeeAllowanceInfo     common.StringObject[V3TradePaymentScanpayQueryTransFeeAllowanceInfo] `json:"trans_fee_allowance_info"`
 		Remark                    string                                                               `json:"remark"`
