@@ -49,7 +49,7 @@ type V3TradeOnlinepaymentQuickpaySmssendExtendInfo struct {
 	NuccData           NuccData           `json:"nucc_data"`
 	TerminalDeviceData TerminalDeviceData `json:"terminal_device_data"`
 	RiskCheckData      RiskCheckData      `json:"risk_check_data"`
-	CombinedpayData    CombinedpayData    `json:"combinedpay_data"`
+	CombinedpayData    []CombinedpayData  `json:"combinedpay_data"`
 }
 type V3TradeOnlinepaymentQuickpaySmssendRequest struct {
 	ReqSeqId    string `json:"req_seq_id"`
