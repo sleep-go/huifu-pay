@@ -104,12 +104,12 @@ type V2TradeOnlinepaymentTransferAccountNotifyMessage struct {
 }
 type V2TradeOnlinepaymentTransferAccountNotifyMessageRespData struct {
 	V3TradePaymentJspayNotifyMessageRespData
-	DebitFlag       string `json:"debit_flag"`
-	UserHuifuId     string `json:"user_huifu_id"`
-	BankId          string `json:"bank_id"`
-	BankExtendParam string `json:"bank_extend_param"`
-	OrderType       string `json:"order_type"` //订单类型	String	1	N	P-支付 R-充值 默认：P-支付；示例值：P
-	RequestIp       string `json:"request_ip"`
-	CertificateName string //收款方名称	String	64	Y	示例值：上海汇付支付支付公司
-	BankCardNo      string //银行卡号	String	19	Y	密文最大长度为2048；使用斗拱公钥做RSA加密；
+	DebitFlag       string          `json:"debit_flag"`
+	UserHuifuId     string          `json:"user_huifu_id"`
+	BankId          string          `json:"bank_id"`
+	BankExtendParam BankExtendParam `json:"bank_extend_param"`
+	OrderType       string          `json:"order_type"` //订单类型	String	1	N	P-支付 R-充值 默认：P-支付；示例值：P
+	RequestIp       string          `json:"request_ip"`
+	CertificateName string          //收款方名称	String	64	Y	示例值：上海汇付支付支付公司
+	BankCardNo      string          //银行卡号	String	19	Y	密文最大长度为2048；使用斗拱公钥做RSA加密；
 }

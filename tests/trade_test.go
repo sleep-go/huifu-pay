@@ -200,3 +200,24 @@ func TestV2QuickbuckleBankQuery(t *testing.T) {
 		fmt.Printf("%s,%s\n", info.BankName+info.BankCode, info.Extend.Decode().DayLimitAmt)
 	}
 }
+func TestV2TradeSettlementEncashment(t *testing.T) {
+	response, raw, err := tr.V2TradeSettlementEncashment(trade.V2TradeSettlementEncashmentRequest{
+		ReqSeqId:         tool.GetReqSeqId(),
+		ReqDate:          tool.GetCurrentDate(),
+		CashAmt:          "1",
+		HuifuId:          tr.HuifuPay.BsPay.Msc.SysId,
+		IntoAcctDateType: "D0",
+		TokenNo:          "10052787816",
+		ExtendInfos: trade.V2TradeSettlementEncashmentExtendInfo{
+			EnchashmentChannel: "",
+			Remark:             "",
+			NotifyUrl:          "",
+			AcctId:             "",
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	_ = fileutil.WriteStringToFile("./1.json", raw, false)
+	fmt.Printf("======info=======\n%+v\n", response)
+}

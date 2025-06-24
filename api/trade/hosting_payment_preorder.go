@@ -270,10 +270,10 @@ type V2TradeHostingPaymentPreorderMessage struct {
 }
 type V2TradeHostingPaymentPreorderMessageRespData struct {
 	V3TradePaymentJspayNotifyMessageRespData
-	DebitFlag       string `json:"debit_flag"`
-	UserHuifuId     string `json:"user_huifu_id"`
-	BankId          string `json:"bank_id"`
-	BankExtendParam string `json:"bank_extend_param"`
-	OrderType       string `json:"order_type"` //订单类型	String	1	N	P-支付 R-充值 默认：P-支付；示例值：P
-	RequestIp       string `json:"request_ip"`
+	DebitFlag       string          `json:"debit_flag"`
+	UserHuifuId     string          `json:"user_huifu_id"`
+	BankId          string          `json:"bank_id"`
+	BankExtendParam BankExtendParam `json:"bank_extend_param"`
+	OrderType       string          `json:"order_type"` //订单类型	String	1	N	P-支付 R-充值 默认：P-支付；示例值：P
+	RequestIp       string          `json:"request_ip"`
 }
