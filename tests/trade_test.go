@@ -167,3 +167,36 @@ func TestV2TradeOnlinepaymentQuickpaySmscheck(t *testing.T) {
 	_ = fileutil.WriteStringToFile("./1.json", raw, false)
 	fmt.Printf("======info=======\n%+v\n", response)
 }
+func TestV2TradeCardbinQuery(t *testing.T) {
+	encrypt, err := common.Encrypt("6225758304151847", tr.HuifuPay.BsPay.Msc)
+	if err != nil {
+		t.Fatal(err)
+	}
+	response, raw, err := tr.V2TradeCardbinQuery(trade.V2TradeCardbinQueryRequest{
+		ReqDate:         tool.GetCurrentDate(),
+		ReqSeqId:        tool.GetReqSeqId(),
+		BankCardNoCrypt: encrypt,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	_ = fileutil.WriteStringToFile("./1.json", raw, false)
+	fmt.Printf("======info=======\n%+v\n", response.Data)
+}
+func TestV2QuickbuckleBankQuery(t *testing.T) {
+	response, raw, err := tr.V2QuickbuckleBankQuery(trade.V2QuickbuckleBankQueryRequest{
+		ReqSeqId: tool.GetReqSeqId(),
+		ReqDate:  tool.GetCurrentDate(),
+		BizType:  "QP",
+		DcType:   "C",
+		HuifuId:  tr.HuifuPay.BsPay.Msc.SysId,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	_ = fileutil.WriteStringToFile("./1.json", raw, false)
+	//fmt.Printf("======info=======\n%+v\n", response.Data.OnlineBankInfoList)
+	for _, info := range response.Data.OnlineBankInfoList {
+		fmt.Printf("%s,%s\n", info.BankName+info.BankCode, info.Extend.Decode().DayLimitAmt)
+	}
+}

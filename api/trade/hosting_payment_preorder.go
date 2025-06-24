@@ -120,7 +120,6 @@ func (t *Trade) V2TradeHostingPaymentPreorderWx(req V2TradeHostingPaymentPreorde
 		HuifuId:      req.HuifuId,
 		TransAmt:     req.TransAmt,
 		GoodsDesc:    req.GoodsDesc,
-		MiniappData:  req.MiniappData.Encode(),
 		ExtendInfos:  common.StructToMapClean(req.ExtendInfos),
 	})
 	if err != nil {
@@ -130,12 +129,11 @@ func (t *Trade) V2TradeHostingPaymentPreorderWx(req V2TradeHostingPaymentPreorde
 }
 
 type V2TradeHostingPaymentPreorderWxRequest struct {
-	HuifuId     string                           `json:"huifu_id"`   // 商户号
-	ReqDate     string                           `json:"req_date"`   // 请求日期
-	ReqSeqId    string                           `json:"req_seq_id"` // 请求流水号
-	TransAmt    string                           `json:"trans_amt"`
-	GoodsDesc   string                           `json:"goods_desc"` // 商品描述
-	MiniappData common.StringObject[MiniappData] `json:"miniapp_data"`
+	HuifuId     string `json:"huifu_id"`   // 商户号
+	ReqDate     string `json:"req_date"`   // 请求日期
+	ReqSeqId    string `json:"req_seq_id"` // 请求流水号
+	TransAmt    string `json:"trans_amt"`
+	GoodsDesc   string `json:"goods_desc"` // 商品描述
 	ExtendInfos V2TradeHostingPaymentPreorderExtendInfo
 }
 type V2TradeHostingPaymentPreorderWxResponse struct {
@@ -154,10 +152,6 @@ type V2TradeHostingPaymentPreorderWxResponse struct {
 
 // V2TradeHostingPaymentPreorder 预下单统一接口 (上面3个接口的整合)
 func (t *Trade) V2TradeHostingPaymentPreorder(req V2TradeHostingPaymentPreorderRequest) (res *V2TradeHostingPaymentPreorderResponse, raw string, err error) {
-	app := ""
-	if req.AppData != "" {
-		app = req.AppData.Encode()
-	}
 	resp, err := t.HuifuPay.BsPay.V2TradeHostingPaymentPreorderRequest(BsPaySdk.V2TradeHostingPaymentPreorderRequest{
 		HuifuId:      req.HuifuId,
 		ReqDate:      req.ReqDate,
@@ -165,7 +159,6 @@ func (t *Trade) V2TradeHostingPaymentPreorder(req V2TradeHostingPaymentPreorderR
 		PreOrderType: req.PreOrderType,
 		TransAmt:     req.TransAmt,
 		GoodsDesc:    req.GoodsDesc,
-		AppData:      app,
 		ExtendInfos:  common.StructToMapClean(req.ExtendInfos),
 	})
 	if err != nil {
@@ -218,28 +211,30 @@ type LargeamtData struct {
 }
 type V2TradeHostingPaymentPreorderExtendInfo struct {
 	AcctId             string             `json:"acct_id"`
-	StyleId            string             `json:"style_id"`             //收银台样式	String	30	N	指定收银台的风格样式；取值登录控台在【开发设置】->【品牌样式】页面查看，参见图片；示例值：128
-	DelayAcctFlag      string             `json:"delay_acct_flag"`      //是否延迟交易	String	1	N	Y 为延迟，N为不延迟，不传默认N；示例值：N
-	AcctSplitBunch     AcctSplitBunch     `json:"acct_split_bunch"`     //分账对象	String	2000	N	分账对象，jsonObject字符串
-	HostingData        HostingData        `json:"hosting_data"`         //半支付托管扩展参数集合	String	2000	Y	jsonObject半支付托管扩展参数集合
-	TimeExpire         string             `json:"time_expire"`          //交易失效时间	String	14	N	请求格式：yyyyMMddHHmmss；示例值：20220912111230 注意:为空默认失效时间为10分钟；用户在交易失效时间后完成交易有可能被关单。最终结果以异步为准； 建议商户在交易量大时，或在搞营销活动时将失效时间设置短一些。
-	BizInfo            BizInfo            `json:"biz_info"`             //业务信息	String	2000	N	jsonObject格式；交易相关的信息
-	NotifyUrl          string             `json:"notify_url"`           //交易异步通知地址	String	512	N	http或https开头，示例值：https://callback.service.com/xx
-	UsageType          string             `json:"usage_type"`           //使用类型	String	1	N	P-支付（默认）； R-充值；示例值：P
-	TransType          common.TradeType   `json:"trans_type"`           //交易类型	String	256	N	支持同时上送多个支付类型（多个时，使用英文逗号分割），上送多个或未传值时进入收银台，上送单个时直接到支付页；
+	StyleId            string             `json:"style_id"`         //收银台样式	String	30	N	指定收银台的风格样式；取值登录控台在【开发设置】->【品牌样式】页面查看，参见图片；示例值：128
+	DelayAcctFlag      string             `json:"delay_acct_flag"`  //是否延迟交易	String	1	N	Y 为延迟，N为不延迟，不传默认N；示例值：N
+	AcctSplitBunch     AcctSplitBunch     `json:"acct_split_bunch"` //分账对象	String	2000	N	分账对象，jsonObject字符串
+	HostingData        HostingData        `json:"hosting_data"`     //半支付托管扩展参数集合	String	2000	Y	jsonObject半支付托管扩展参数集合
+	TimeExpire         string             `json:"time_expire"`      //交易失效时间	String	14	N	请求格式：yyyyMMddHHmmss；示例值：20220912111230 注意:为空默认失效时间为10分钟；用户在交易失效时间后完成交易有可能被关单。最终结果以异步为准； 建议商户在交易量大时，或在搞营销活动时将失效时间设置短一些。
+	BizInfo            BizInfo            `json:"biz_info"`         //业务信息	String	2000	N	jsonObject格式；交易相关的信息
+	CallbackUrl        string             `json:"callback_url"`
+	NotifyUrl          string             `json:"notify_url"` //交易异步通知地址	String	512	N	http或https开头，示例值：https://callback.service.com/xx
+	UsageType          string             `json:"usage_type"` //使用类型	String	1	N	P-支付（默认）； R-充值；示例值：P
+	TransType          common.TradeType   `json:"trans_type"` //交易类型	String	256	N	支持同时上送多个支付类型（多个时，使用英文逗号分割），上送多个或未传值时进入收银台，上送单个时直接到支付页；
+	AppData            AppData            `json:"app_data"`   // app扩展参数集合
+	MiniappData        MiniappData        `json:"miniapp_data"`
 	WxData             WxData             `json:"wx_data"`              //微信参数集合	String	2048	N	jsonObject字符串
 	AlipayData         AlipayData         `json:"alipay_data"`          //支付宝参数集合	String	2048	N	jsonObject字符串
 	UnionpayData       UnionpayData       `json:"unionpay_data"`        //银联参数集合	String	2048	N	jsonObject字符串
 	TerminalDeviceData TerminalDeviceData `json:"terminal_device_data"` //设备信息	String	2048	N	jsonObject字符串
 }
 type V2TradeHostingPaymentPreorderRequest struct {
-	HuifuId      string                       `json:"huifu_id"`       // 商户号
-	ReqDate      string                       `json:"req_date"`       // 请求日期
-	ReqSeqId     string                       `json:"req_seq_id"`     // 请求流水号
-	PreOrderType string                       `json:"pre_order_type"` // 预下单类型
-	TransAmt     string                       `json:"trans_amt"`      // 交易金额
-	GoodsDesc    string                       `json:"goods_desc"`     // 商品描述
-	AppData      common.StringObject[AppData] `json:"app_data"`       // app扩展参数集合
+	HuifuId      string `json:"huifu_id"`       // 商户号
+	ReqDate      string `json:"req_date"`       // 请求日期
+	ReqSeqId     string `json:"req_seq_id"`     // 请求流水号
+	PreOrderType string `json:"pre_order_type"` // 预下单类型
+	TransAmt     string `json:"trans_amt"`      // 交易金额
+	GoodsDesc    string `json:"goods_desc"`     // 商品描述
 	ExtendInfos  V2TradeHostingPaymentPreorderExtendInfo
 }
 type V2TradeHostingPaymentPreorderResponse struct {
