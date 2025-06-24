@@ -152,3 +152,18 @@ func TestPreorder(t *testing.T) {
 	_ = fileutil.WriteStringToFile("./1.json", raw, false)
 	fmt.Printf("======info=======\n%+v\n", response)
 }
+func TestV2TradeOnlinepaymentQuickpaySmscheck(t *testing.T) {
+	response, raw, err := tr.V2TradeOnlinepaymentQuickpaySmscheck(trade.V2TradeOnlinepaymentQuickpaySmscheckRequest{
+		ReqSeqId:    tool.GetReqSeqId(),
+		ReqDate:     tool.GetCurrentDate(),
+		HuifuId:     tr.HuifuPay.BsPay.Msc.SysId,
+		OrgReqDate:  tool.GetCurrentDate(),
+		OrgReqSeqId: tool.GetReqSeqId(),
+		SmsCode:     "123456",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	_ = fileutil.WriteStringToFile("./1.json", raw, false)
+	fmt.Printf("======info=======\n%+v\n", response)
+}
