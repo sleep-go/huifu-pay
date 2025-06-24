@@ -47,13 +47,13 @@ func (t *Trade) V2TradeOnlinepaymentTransferAccount(req V2TradeOnlinepaymentTran
 type V2TradeOnlinepaymentTransferAccountExtendInfo struct {
 	UserHuifuId          string `json:"user_huifu_id,omitempty"`
 	AcctId               string `json:"acct_id,omitempty"`
-	CertificateName      string `json:"certificate_name,omitempty"` //付款方名称	String	64	N	bank_mode=SNYH，且page_flag=N时必填；示例值：上海汇付支付有限公司
-	BankCardNo           string `json:"bank_card_no,omitempty"`     //付款方银行卡号	String	2048	N	bank_mode=SNYH，且page_flag=N时必填；原文最大为19位，密文最大长度为2048；使用斗拱公钥做RSA加密； 示例值：b9LE5RccVVLChrHgo9lvp……PhWhjKrWg2NPfbe0mkQ== 支持的银行见清单；
-	Remark               string `json:"remark,omitempty"`           //备注	String	1024	N	示例值：采购原料
-	PageFlag             string `json:"page_flag,omitempty"`        //页面标识	String	1	N	Y-返回页面url，N-不返回页面url，默认：Y bank_mode=SNYH生效，示例值：Y
-	OrderType            string `json:"order_type,omitempty"`       //订单类型	String	1	N	P-支付，R-充值，默认：P；示例值：P
-	NotifyUrl            string `json:"notify_url,omitempty"`       //异步通知地址	String	512	N	以'http'或者'https'开头， 示例值：http://www.huifu.com/getResp
-	BankMode             string `json:"bank_mode,omitempty"`
+	CertificateName      string `json:"certificate_name,omitempty"`        //付款方名称	String	64	N	bank_mode=SNYH，且page_flag=N时必填；示例值：上海汇付支付有限公司
+	BankCardNo           string `json:"bank_card_no,omitempty"`            //付款方银行卡号	String	2048	N	bank_mode=SNYH，且page_flag=N时必填；原文最大为19位，密文最大长度为2048；使用斗拱公钥做RSA加密； 示例值：b9LE5RccVVLChrHgo9lvp……PhWhjKrWg2NPfbe0mkQ== 支持的银行见清单；
+	Remark               string `json:"remark,omitempty"`                  //备注	String	1024	N	示例值：采购原料
+	PageFlag             string `json:"page_flag,omitempty"`               //页面标识	String	1	N	Y-返回页面url，N-不返回页面url，默认：Y bank_mode=SNYH生效，示例值：Y
+	OrderType            string `json:"order_type,omitempty"`              //订单类型	String	1	N	P-支付，R-充值，默认：P；示例值：P
+	NotifyUrl            string `json:"notify_url,omitempty"`              //异步通知地址	String	512	N	以'http'或者'https'开头， 示例值：http://www.huifu.com/getResp
+	BankMode             string `json:"bank_mode,omitempty"`               // BFJ-备付金模式(默认模式)，SNYH-银行模式
 	AcctMode             string `json:"acct_mode,omitempty"`               //入账模式	String	8	N	bank_mode为银行模式时，必填
 	DelayAcctFlag        string `json:"delay_acct_flag,omitempty"`         //延时标记	String	1	N	Y：延迟，银行大额支付仅支持延迟分账；示例值：Y，不传时则不分账 延时交易要调【交易确认】接口资金才能进入收款方账户，否则会停留在延时账户中。
 	OrderMode            string `json:"order_mode,omitempty"`              //订单模式	String	2	N	O-订单下单模式，
