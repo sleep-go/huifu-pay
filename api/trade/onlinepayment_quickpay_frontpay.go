@@ -61,4 +61,59 @@ type V2TradeOnlinepaymentQuickpayFrontpayRequest struct {
 	ExtendInfos V2TradeOnlinepaymentQuickpayFrontpayExtendInfo
 }
 type V2TradeOnlinepaymentQuickpayFrontpayResponse struct {
+	Data struct {
+		RespCode       string                              `json:"resp_code"`
+		RespDesc       string                              `json:"resp_desc"`
+		ReqSeqId       string                              `json:"req_seq_id"`
+		ReqDate        string                              `json:"req_date"`
+		MerName        string                              `json:"mer_name"`
+		UserHuifuId    string                              `json:"user_huifu_id"`
+		GoodsDesc      string                              `json:"goods_desc"`
+		TransAmt       string                              `json:"trans_amt"`
+		TransStat      string                              `json:"trans_stat"`
+		HfSeqId        string                              `json:"hf_seq_id"`
+		RequestType    string                              `json:"request_type"`
+		FormUrl        string                              `json:"form_url"`
+		Remark         string                              `json:"remark"`
+		AcctSplitBunch common.StringObject[AcctSplitBunch] `json:"acct_split_bunch"`
+	} `json:"data"`
+	Sign string `json:"sign"`
+}
+type V2TradeOnlinepaymentQuickpayFrontpayNotifyMessage struct {
+	RespCode string                                                                     `json:"resp_code"`
+	RespDesc string                                                                     `json:"resp_desc"`
+	Data     common.StringObject[V2TradeOnlinepaymentQuickpayFrontpayNotifyMessageData] `json:"data"`
+	Sign     string
+}
+type V2TradeOnlinepaymentQuickpayFrontpayNotifyMessageData struct {
+	RespCode       string         `json:"resp_code"`
+	RespDesc       string         `json:"resp_desc"`
+	ReqSeqId       string         `json:"req_seq_id"`
+	ReqDate        string         `json:"req_date"`
+	UserHuifuId    string         `json:"user_huifu_id"`
+	GoodsDesc      string         `json:"goods_desc"`
+	TransAmt       string         `json:"trans_amt"`
+	TransStat      string         `json:"trans_stat"`
+	HfSeqId        string         `json:"hf_seq_id"`
+	RequestType    string         `json:"request_type"`
+	FormUrl        string         `json:"form_url"`
+	Remark         string         `json:"remark"`
+	ProductId      string         //产品号	String	32	Y	汇付分配的产品号；示例值：YYZY
+	HuifuId        string         //商户号	String	32	Y	汇付分配的商户号；示例值：6666000108854952
+	MerName        string         //商户名称	String	256	N	示例值：上海汇付支付有限公司
+	MerPriv        string         //商户私有域	String	1024	N	原样返回请求参数中的“remark备注”内容；示例值：商户私有域
+	TransDate      string         //交易日期	String	8	N	格式：YYYYMMDD；示例值：20230413
+	TransTime      string         //交易时间	String	6	N	格式：HHMMSS；示例值：121009
+	BankId         string         //银行代号	String	8	N	示例值：30200000
+	DebitFlag      string         //借贷标识	String	1	N	D：借记；C：贷记；示例值：D
+	FeeFlag        string         //手续费扣款标志	String	1	N	1：外扣；2：内扣；示例值：2
+	FeeAmt         string         //手续费	String	12	N	单位元，需保留小数点后两位，示例值：1.00
+	IsDiv          string         //是否分账交易	String	1	N	0：非分账交易；1：是分账交易示例值：0
+	IsDelayAcct    string         //是否延时分账	String	1	N	0：实时；1：延时；示例值：1 注意延时交易要调交易确认接口资金才能进入收款方账户，否则会停留在延时账户中。
+	AcctSplitBunch AcctSplitBunch //分账串	Object		N	格式：jsonObject；参见分账串
+	SplitFeeInfo   SplitFeeInfo   //分账手续费信息	Object	2048	N	jsonObject格式
+	TransType      string         //交易类型	String	30	Y	QUICK_PAY：快捷支付，QUICK_RECHARGE：快捷充值；示例值：QUICK_PAY
+	OrderType      string         //订单类型	String	1	N	P-支付 R-充值 默认：P-支付；示例值：P
+	BankCode       string         //通道返回码	String	8	N	示例值：00
+	BankMessage    string         //通道返回描述	String	128	N	示例值：成功[0000000]
 }
