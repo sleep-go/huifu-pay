@@ -248,21 +248,9 @@ func TestFeecalc(t *testing.T) {
 func TestV2TradeSettlementQuery(t *testing.T) {
 	_, raw, err := tr.V2TradeSettlementQuery(trade.V2TradeSettlementQueryRequest{
 		HuifuId:     tr.HuifuPay.BsPay.Msc.SysId,
-		OrgReqDate:  "20250618",
-		OrgHfSeqId:  "",
+		OrgReqDate:  "20250613",
+		OrgHfSeqId:  "003500TOP1A250612162154P972ac139d8d00000",
 		OrgReqSeqId: "",
-		ExtendInfos: trade.V2TradeSettlementQueryExtendInfo{
-			ReqSeqId:    tool.GetReqSeqId(),
-			ReqDate:     tool.GetCurrentDate(),
-			BeginDate:   "20250601",
-			EndDate:     "20250611",
-			PageSize:    "",
-			SettleCycle: "",
-			PageNum:     "",
-			TransStat:   "",
-			SortColumn:  "",
-			SortOrder:   "",
-		},
 	})
 	if err != nil {
 		log.Fatal(err)
