@@ -19,8 +19,6 @@ func (t *Trade) V2TradeAcctpaymentPay(req V2TradeAcctpaymentPayRequest) (res *V2
 		ReqDate:          req.ReqDate,
 		OutHuifuId:       req.OutHuifuId,
 		OrdAmt:           req.OrdAmt,
-		AcctSplitBunch:   req.AcctSplitBunch.Encode(),
-		RiskCheckData:    req.RiskCheckData.Encode(),
 		FundType:         req.FundType,
 		TransFeeTakeFlag: req.TransFeeTakeFlag,
 		ExtendInfos:      common.StructToMapClean(req.ExtendInfos),
@@ -43,17 +41,17 @@ type V2TradeAcctpaymentPayExtendInfo struct {
 	LgPlatformType  string
 	SalaryModleType string
 	BmemberId       string
+	AcctSplitBunch  AcctSplitBunch
+	RiskCheckData   RiskCheckData
 	LjhData         common.LjhData
 }
 type V2TradeAcctpaymentPayRequest struct {
-	ReqSeqId         string                              `json:"req_seq_id,omitempty"`          // 请求流水号
-	ReqDate          string                              `json:"req_date,omitempty"`            // 请求日期
-	OutHuifuId       string                              `json:"out_huifu_id,omitempty"`        // 出款方商户号
-	OrdAmt           string                              `json:"ord_amt,omitempty"`             // 支付金额
-	AcctSplitBunch   common.StringObject[AcctSplitBunch] `json:"acct_split_bunch,omitempty"`    // 分账对象
-	RiskCheckData    common.StringObject[RiskCheckData]  `json:"risk_check_data,omitempty"`     // 安全信息
-	FundType         string                              `json:"fund_type,omitempty"`           // 资金类型资金类型。支付渠道为中信E管家时，资金类型必填（[详见说明](https://paas.huifu.com/open/doc/api/#/yuer/api_zxegjzllx)）
-	TransFeeTakeFlag string                              `json:"trans_fee_take_flag,omitempty"` // 手续费承担方标识余额支付手续费承担方标识；商户余额支付扣收规则为接口指定承担方时必填！枚举值：&lt;br/&gt;OUT：出款方；&lt;br/&gt;IN：分账接受方。&lt;br/&gt;&lt;font color&#x3D;&quot;green&quot;&gt;示例值：IN&lt;/font&gt;
+	ReqSeqId         string `json:"req_seq_id,omitempty"`          // 请求流水号
+	ReqDate          string `json:"req_date,omitempty"`            // 请求日期
+	OutHuifuId       string `json:"out_huifu_id,omitempty"`        // 出款方商户号
+	OrdAmt           string `json:"ord_amt,omitempty"`             // 支付金额
+	FundType         string `json:"fund_type,omitempty"`           // 资金类型资金类型。支付渠道为中信E管家时，资金类型必填（[详见说明](https://paas.huifu.com/open/doc/api/#/yuer/api_zxegjzllx)）
+	TransFeeTakeFlag string `json:"trans_fee_take_flag,omitempty"` // 手续费承担方标识余额支付手续费承担方标识；商户余额支付扣收规则为接口指定承担方时必填！枚举值：&lt;br/&gt;OUT：出款方；&lt;br/&gt;IN：分账接受方。&lt;br/&gt;&lt;font color&#x3D;&quot;green&quot;&gt;示例值：IN&lt;/font&gt;
 	ExtendInfos      V2TradeAcctpaymentPayExtendInfo
 }
 type V2TradeAcctpaymentPayResponse struct {
