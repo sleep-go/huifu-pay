@@ -221,3 +221,27 @@ func TestV2TradeSettlementEncashment(t *testing.T) {
 	_ = fileutil.WriteStringToFile("./1.json", raw, false)
 	fmt.Printf("======info=======\n%+v\n", response)
 }
+func TestFeecalc(t *testing.T) {
+	response, raw, err := tr.Feecalc(trade.V2TradeFeecalcRequest{
+		HuifuId:   tr.HuifuPay.BsPay.Msc.SysId,
+		ReqDate:   tool.GetCurrentDate(),
+		ReqSeqId:  tool.GetReqSeqId(),
+		TradeType: "QUICK_PAY",
+		TransAmt:  "1000.00",
+		ExtendInfos: trade.V2TradeFeecalcExtendInfo{
+			OnlineTransType: "",
+			TransAmt:        "",
+			BankId:          "01030000",
+			CardType:        "",
+			ChannelNo:       "",
+			DigitalBankNo:   "",
+			EncashType:      "",
+			PayScene:        "",
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	_ = fileutil.WriteStringToFile("./1.json", raw, false)
+	fmt.Printf("======info=======\n%+v\n", response.Data)
+}

@@ -850,6 +850,18 @@ const (
 	TradeType_T_APP TradeType = "T_APP"
 	// TradeType_T_NATIVE T_NATIVE：微信正扫
 	TradeType_T_NATIVE TradeType = "T_NATIVE"
+	// TradeType_UNION_PAY 银联统一支付；
+	TradeType_UNION_PAY TradeType = "UNION_PAY"
+	// TradeType_WAP_PAY 手机WAP
+	TradeType_WAP_PAY TradeType = "WAP_PAY"
+	// TradeType_QUICK_PAY 快捷
+	TradeType_QUICK_PAY TradeType = "QUICK_PAY"
+	// TradeType_ONLINE_PAY 网银
+	TradeType_ONLINE_PAY TradeType = "ONLINE_PAY"
+	// TradeType_ACCT_PAYMENT 余额支付
+	TradeType_ACCT_PAYMENT TradeType = "ACCT_PAYMENT"
+	// TradeType_ENCASHMENT 取现
+	TradeType_ENCASHMENT TradeType = "ENCASHMENT"
 )
 
 type LjhData struct {

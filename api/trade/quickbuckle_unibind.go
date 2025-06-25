@@ -32,7 +32,7 @@ func (t *Trade) V2QuickbuckleUnbind(req V2QuickbuckleUnbindRequest) (res *V2Quic
 }
 
 type V2QuickbuckleUnbindExtendInfo struct {
-	MerchName string `json:"merch_name,omitempty"`
+	MerchName string `json:"merch_name"`
 }
 type V2QuickbuckleUnbindRequest struct {
 	ReqDate     string `json:"req_date,omitempty"`       //请求日期	String	8	Y	日期格式：yyyyMMdd，以北京时间为准；示例值：20220125
