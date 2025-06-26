@@ -30,10 +30,10 @@ func (t *Trade) V2TradeSettlementEncashment(req V2TradeSettlementEncashmentReque
 }
 
 type V2TradeSettlementEncashmentExtendInfo struct {
-	EnchashmentChannel string //取现渠道	String	2	N	00：汇付（为空默认）； 10：中信e账通；示例值：00
-	Remark             string //备注	String	100	N	示例值：备注
-	NotifyUrl          string //异步通知地址	String	128	N
-	AcctId             string //可指定账户号，仅支持基本户、现金户，不填默认为基本户；
+	EnchashmentChannel string `json:"enchashment_channel"` //取现渠道	String	2	N	00：汇付（为空默认）； 10：中信e账通；示例值：00
+	Remark             string `json:"remark"`              //备注	String	100	N	示例值：备注
+	NotifyUrl          string `json:"notify_url"`          //异步通知地址	String	128	N
+	AcctId             string `json:"acct_id"`             //可指定账户号，仅支持基本户、现金户，不填默认为基本户；
 }
 type V2TradeSettlementEncashmentRequest struct {
 	ReqDate          string `json:"req_date" structs:"req_date"`                       // 请求日期

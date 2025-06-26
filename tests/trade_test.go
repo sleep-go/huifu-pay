@@ -258,3 +258,42 @@ func TestV2TradeSettlementQuery(t *testing.T) {
 	_ = fileutil.WriteStringToFile("./1.json", raw, false)
 	//fmt.Printf("======info=======\n%+v\n", response)
 }
+func TestV2TradeAcctpaymentPay(t *testing.T) {
+	response, raw, err := tr.V2TradeAcctpaymentPay(trade.V2TradeAcctpaymentPayRequest{
+		ReqSeqId:         tool.GetReqSeqId(),
+		ReqDate:          tool.GetCurrentDate(),
+		OutHuifuId:       tr.HuifuPay.BsPay.Msc.SysId,
+		OrdAmt:           "0.01",
+		TransFeeTakeFlag: "OUT",
+		ExtendInfos: trade.V2TradeAcctpaymentPayExtendInfo{
+			NotifyUrl: "",
+			AcctSplitBunch: trade.AcctSplitBunch{
+				AcctInfos: []struct {
+					DivAmt        string `json:"div_amt"`  //分账金额	String	14	N	单位元，需保留小数点后两位，示例值：1.00 ，最低传入0.01
+					HuifuId       string `json:"huifu_id"` //分账接收方ID	String	32	Y	斗拱开户时生成；示例值：6666000123120001
+					AcctId        string `json:"acct_id"`  //账户号	String	9	N	可指定账户号，仅支持基本户、现金户，不填默认为基本户；示例值：F00598600
+					AcctDate      string `json:"acct_date"`
+					PercentageDiv string `json:"percentage_div"` //分账百分比%	String	6	N	示例值：23.50，表示23.50%。仅在percentage_flag=Y时起作用 acct_infos中全部分账百分比之和必须为100.00%。
+				}{
+					{
+						DivAmt:  "1000.01",
+						HuifuId: "6666000169041642",
+					},
+				},
+			},
+			RiskCheckData: trade.RiskCheckData{
+				IpAddr:       "",
+				BaseStation:  "",
+				Latitude:     "",
+				Longitude:    "",
+				SubProduct:   "1",
+				TransferType: "03",
+			},
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	_ = fileutil.WriteStringToFile("./1.json", raw, false)
+	fmt.Printf("======info=======\n%+v\n", response)
+}

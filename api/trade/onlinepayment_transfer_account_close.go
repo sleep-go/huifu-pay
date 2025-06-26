@@ -31,15 +31,15 @@ func (t *Trade) V2TradeOnlinepaymentTransferAccountClose(req V2TradeOnlinepaymen
 }
 
 type V2TradeOnlinepaymentTransferAccountCloseExtendInfo struct {
-	BankCardNo string
-	InAcctFlag string
+	BankCardNo string `json:"bank_card_no"`
+	InAcctFlag string `json:"in_acct_flag"`
 }
 type V2TradeOnlinepaymentTransferAccountCloseRequest struct {
-	ReqSeqId    string `json:"req_seq_id,omitempty"` // 请求流水号
-	ReqDate     string `json:"req_date,omitempty"`   // 请求日期
-	HuifuId     string `json:"huifu_id,omitempty"`   // 收款方商户号
-	OrgReqSeqId string `json:"org_req_seq_id,omitempty"`
-	OrgReqDate  string `json:"org_req_date,omitempty"`
+	ReqSeqId    string `json:"req_seq_id"` // 请求流水号
+	ReqDate     string `json:"req_date"`   // 请求日期
+	HuifuId     string `json:"huifu_id"`   // 收款方商户号
+	OrgReqSeqId string `json:"org_req_seq_id"`
+	OrgReqDate  string `json:"org_req_date"`
 	ExtendInfos V2TradeOnlinepaymentTransferAccountCloseExtendInfo
 }
 type V2TradeOnlinepaymentTransferAccountCloseResponse struct {

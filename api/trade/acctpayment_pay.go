@@ -1,6 +1,8 @@
 package trade
 
 import (
+	"fmt"
+
 	"github.com/huifurepo/bspay-go-sdk/BsPaySdk"
 	"github.com/sleep-go/huifu-pay/common"
 )
@@ -14,6 +16,7 @@ import (
 // 适用对象
 // 已开通余额支付相关功能的商户。
 func (t *Trade) V2TradeAcctpaymentPay(req V2TradeAcctpaymentPayRequest) (res *V2TradeAcctpaymentPayResponse, raw string, err error) {
+	fmt.Println(req.ExtendInfos)
 	resp, err := t.HuifuPay.BsPay.V2TradeAcctpaymentPayRequest(BsPaySdk.V2TradeAcctpaymentPayRequest{
 		ReqSeqId:         req.ReqSeqId,
 		ReqDate:          req.ReqDate,
@@ -30,28 +33,28 @@ func (t *Trade) V2TradeAcctpaymentPay(req V2TradeAcctpaymentPayRequest) (res *V2
 }
 
 type V2TradeAcctpaymentPayExtendInfo struct {
-	NotifyUrl       string
-	HuifuId         string
-	GoodDesc        string
-	Remark          string
-	DelayAcctFlag   string
-	OutAcctId       string
-	AcctChannel     string
-	HycFlag         string
-	LgPlatformType  string
-	SalaryModleType string
-	BmemberId       string
-	AcctSplitBunch  AcctSplitBunch
-	RiskCheckData   RiskCheckData
-	LjhData         common.LjhData
+	NotifyUrl       string         `json:"notify_url"`
+	HuifuId         string         `json:"huifu_id"`
+	GoodDesc        string         `json:"good_desc"`
+	Remark          string         `json:"remark"`
+	DelayAcctFlag   string         `json:"delay_acct_flag"`
+	OutAcctId       string         `json:"out_acct_id"`
+	AcctChannel     string         `json:"acct_channel"`
+	HycFlag         string         `json:"hyc_flag"`
+	LgPlatformType  string         `json:"lg_platform_type"`
+	SalaryModleType string         `json:"salary_modle_type"`
+	BmemberId       string         `json:"bmember_id"`
+	AcctSplitBunch  AcctSplitBunch `json:"acct_split_bunch"`
+	RiskCheckData   RiskCheckData  `json:"risk_check_data"`
+	LjhData         common.LjhData `json:"ljh_data"`
 }
 type V2TradeAcctpaymentPayRequest struct {
-	ReqSeqId         string `json:"req_seq_id,omitempty"`          // 请求流水号
-	ReqDate          string `json:"req_date,omitempty"`            // 请求日期
-	OutHuifuId       string `json:"out_huifu_id,omitempty"`        // 出款方商户号
-	OrdAmt           string `json:"ord_amt,omitempty"`             // 支付金额
-	FundType         string `json:"fund_type,omitempty"`           // 资金类型资金类型。支付渠道为中信E管家时，资金类型必填（[详见说明](https://paas.huifu.com/open/doc/api/#/yuer/api_zxegjzllx)）
-	TransFeeTakeFlag string `json:"trans_fee_take_flag,omitempty"` // 手续费承担方标识余额支付手续费承担方标识；商户余额支付扣收规则为接口指定承担方时必填！枚举值：&lt;br/&gt;OUT：出款方；&lt;br/&gt;IN：分账接受方。&lt;br/&gt;&lt;font color&#x3D;&quot;green&quot;&gt;示例值：IN&lt;/font&gt;
+	ReqSeqId         string `json:"req_seq_id"`          // 请求流水号
+	ReqDate          string `json:"req_date"`            // 请求日期
+	OutHuifuId       string `json:"out_huifu_id"`        // 出款方商户号
+	OrdAmt           string `json:"ord_amt"`             // 支付金额
+	FundType         string `json:"fund_type"`           // 资金类型资金类型。支付渠道为中信E管家时，资金类型必填（[详见说明](https://paas.huifu.com/open/doc/api/#/yuer/api_zxegjzllx)）
+	TransFeeTakeFlag string `json:"trans_fee_take_flag"` // 手续费承担方标识余额支付手续费承担方标识；商户余额支付扣收规则为接口指定承担方时必填！枚举值：&lt;br/&gt;OUT：出款方；&lt;br/&gt;IN：分账接受方。&lt;br/&gt;&lt;font color&#x3D;&quot;green&quot;&gt;示例值：IN&lt;/font&gt;
 	ExtendInfos      V2TradeAcctpaymentPayExtendInfo
 }
 type V2TradeAcctpaymentPayResponse struct {
@@ -92,8 +95,8 @@ type V2TradeAcctpaymentPayNotifyMessage struct {
 	Sign     string
 }
 type V2TradeAcctpaymentPayNotifyMessageRespData struct {
-	RespCode       string         `json:"resp_code,omitempty"` //业务返回码	String	8	Y	业务返回码
-	RespDesc       string         `json:"resp_desc,omitempty"` //业务返回描述	String	512	Y	业务返回描述
+	RespCode       string         `json:"resp_code"` //业务返回码	String	8	Y	业务返回码
+	RespDesc       string         `json:"resp_desc"` //业务返回描述	String	512	Y	业务返回描述
 	ReqDate        string         `json:"req_date"`
 	ReqSeqId       string         `json:"req_seq_id"`
 	HuifuId        string         `json:"huifu_id"`
