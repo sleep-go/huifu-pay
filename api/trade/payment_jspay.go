@@ -151,13 +151,18 @@ type DcData struct {
 }
 type AcctSplitBunch struct {
 	AcctInfos []struct {
-		DivAmt        string `json:"div_amt"`        //分账金额	String	14	N	单位元，需保留小数点后两位，示例值：1.00 ，最低传入0.01
-		HuifuId       string `json:"huifu_id"`       //分账接收方ID	String	32	Y	斗拱开户时生成；示例值：6666000123120001
-		AcctId        string `json:"acct_id"`        //账户号	String	9	N	可指定账户号，仅支持基本户、现金户，不填默认为基本户；示例值：F00598600
+		DivAmt        string `json:"div_amt"`  //分账金额	String	14	N	单位元，需保留小数点后两位，示例值：1.00 ，最低传入0.01
+		HuifuId       string `json:"huifu_id"` //分账接收方ID	String	32	Y	斗拱开户时生成；示例值：6666000123120001
+		AcctId        string `json:"acct_id"`  //账户号	String	9	N	可指定账户号，仅支持基本户、现金户，不填默认为基本户；示例值：F00598600
+		AcctDate      string `json:"acct_date"`
 		PercentageDiv string `json:"percentage_div"` //分账百分比%	String	6	N	示例值：23.50，表示23.50%。仅在percentage_flag=Y时起作用 acct_infos中全部分账百分比之和必须为100.00%。
 	} `json:"acct_infos"` //分账明细	Array		N	jsonArray分账明细
 	PercentageFlag string `json:"percentage_flag"` //百分比分账标志	String	1	N	Y:使用百分比分账；示例值：Y
 	IsCleanSplit   string `json:"is_clean_split"`  //是否净值分账	String	1	N	Y:使用净值分账，仅在交易手续费内扣且使用百分比分账时起作用；示例值：Y
+	FeeAmt         string `json:"fee_amt"`
+	FeeHuifuId     string `json:"fee_huifu_id"`
+	FeeAcctId      string `json:"fee_acct_id"`
+	FeeAcctDate    string `json:"fee_acct_date"`
 }
 type CombinedpayData struct {
 	HuifuId  string `json:"huifu_id"`  //补贴方汇付商户号	String	32	Y	补贴方汇付ID；示例值：6666000123123123

@@ -72,7 +72,7 @@ type V3TradePaymentScanpayQueryResponse struct {
 		AlipayResponse            common.StringObject[AlipayResponse]                                  `json:"alipay_response"`
 		UnionpayResponse          common.StringObject[common.UnionpayResponse]                         `json:"unionpay_response"`
 		DivFlag                   string                                                               `json:"div_flag"`
-		AcctSplitBunch            common.StringObject[V3TradePaymentScanpayQueryAcctSplitBunch]        `json:"acct_split_bunch"`
+		AcctSplitBunch            common.StringObject[AcctSplitBunch]                                  `json:"acct_split_bunch"`
 		SplitFeeInfo              common.StringObject[SplitFeeInfo]                                    `json:"split_fee_info"`
 		CombinedpayData           common.StringObject[[]CombinedpayData]                               `json:"combinedpay_data"`
 		CombinedpayFeeAmt         string                                                               `json:"combinedpay_fee_amt"`
@@ -173,14 +173,6 @@ type AlipayResponse struct {
 	MdiscountAmount string `json:"mdiscount_amount,omitempty"` //商家优惠金额	String	11	N	直连模式字段；示例值：2.00
 	DiscountAmount  string `json:"discount_amount,omitempty"`  //平台优惠金额	String	11	N	直连模式字段；示例值：3.00
 	ExtInfos        string `json:"ext_infos,omitempty"`        //交易额外信息	Json	1024	N	直连模式字段，特殊场景下与支付宝约定返回；示例值：交易额外信息
-}
-type V3TradePaymentScanpayQueryAcctSplitBunch struct {
-	AcctInfos []struct {
-		AcctId  string `json:"acct_id"`
-		DivAmt  string `json:"div_amt"`
-		HuifuId string `json:"huifu_id"`
-	} `json:"acct_infos"`
-	IsCleanSplit string
 }
 type SplitFeeInfo struct {
 	TotalSplitFeeAmt string `json:"total_split_fee_amt,omitempty"` //分账手续费总金额(元)	String	14	N	示例值：0.10
