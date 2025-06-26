@@ -865,16 +865,16 @@ const (
 )
 
 type LjhData struct {
-	TaxAreaId  string //税源地id	String	13	C	当合作平台为乐接活，必填
-	TemplateId string //任务模板ID	String	64	N	任务模板ID。灵活用工平台为乐接活时必填！
+	TaxAreaId  string `json:"tax_area_id"` //税源地id	String	13	C	当合作平台为乐接活，必填
+	TemplateId string `json:"template_id"` //任务模板ID	String	64	N	任务模板ID。灵活用工平台为乐接活时必填！
 }
 type UnionpayResponse struct {
 	CouponInfo []struct {
-		AddnInfo string `json:"addn_info,omitempty"` //附加信息	String	100	N	内容自定义；示例值：附加信息
-		SpnsrId  string `json:"spnsr_id,omitempty"`  //出资方	String	20	Y	00010000：银联出资 付款方作为出资方：填写8位付款方机构代码 商户作为出资方：填写15位商户代码 示例值：00010000
-		Type     string `json:"type,omitempty"`      //项目类型	String	4	Y	DD01：随机立减 CP01：抵金券1：无需领取，交易时直接适配并承兑的优惠券 CP02：抵金券2：事前领取，交易时上送银联并承兑的优惠券 示例值：DD01
-		OffstAmt string `json:"offst_amt,omitempty"` //抵消交易金额	String	14	Y	不能为全0；示例值：1.00
-		ID       string `json:"id,omitempty"`        //项目编号	String	40	N	用于票券编号等，格式自定义；示例值：938434221
-		Desc     string `json:"desc,omitempty"`      //项目简称	String	40	N	优惠活动简称，可用于展示、打单等；示例值：中秋优惠促销
+		AddnInfo string `json:"addn_info"` //附加信息	String	100	N	内容自定义；示例值：附加信息
+		SpnsrId  string `json:"spnsr_id"`  //出资方	String	20	Y	00010000：银联出资 付款方作为出资方：填写8位付款方机构代码 商户作为出资方：填写15位商户代码 示例值：00010000
+		Type     string `json:"type"`      //项目类型	String	4	Y	DD01：随机立减 CP01：抵金券1：无需领取，交易时直接适配并承兑的优惠券 CP02：抵金券2：事前领取，交易时上送银联并承兑的优惠券 示例值：DD01
+		OffstAmt string `json:"offst_amt"` //抵消交易金额	String	14	Y	不能为全0；示例值：1.00
+		ID       string `json:"id"`        //项目编号	String	40	N	用于票券编号等，格式自定义；示例值：938434221
+		Desc     string `json:"desc"`      //项目简称	String	40	N	优惠活动简称，可用于展示、打单等；示例值：中秋优惠促销
 	} `json:"coupon_info"`
 }

@@ -105,8 +105,8 @@ type AlipayData struct {
 	SellerId        string `json:"seller_id"`
 	StoreId         string `json:"store_id"`
 	ExtUserInfo     struct {
-		Name   string //姓名	String	16	N	注：need_check_info=T时，该参数才有效；示例值：张三
-		Mobile string //手机号	String	20	N	注：该参数暂不校验；示例值：13911111111
+		Name   string `json:"name"`   //姓名	String	16	N	注：need_check_info=T时，该参数才有效；示例值：张三
+		Mobile string `json:"mobile"` //手机号	String	20	N	注：该参数暂不校验；示例值：13911111111
 		//证件类型	String	32	N	身份证：IDENTITY_CARD，
 		//		护照：PASSPORT；
 		//		军官证：OFFICER_CARD，
@@ -114,11 +114,11 @@ type AlipayData struct {
 		//		户口本：HOKOU；
 		//		示例值：IDENTITY_CARD
 		//		注：need_check_info=T时，该参数才有效
-		CertType      string
-		CertNo        string //证件号	String	64	N	示例值：Ly+fnExeyPOTzfOtgRRur77nJB9TAe4PGgK9M ， 需要密文传输，请参考加密解密说明使用汇付RSA公钥加密。 注：need_check_info=T时，该参数才有效
-		MinAge        string //	允许的最小买家年龄	String	3	N	买家年龄必须大于等于所传数值。示例值：18 注：1. need_check_info = T 时该参数才有效，2. min_age 为整数，必须大于等于 0
-		FixBuyer      string //是否强制校验付款人身份信息	String	8	N	T：强制校验，F：不强制；示例值：T
-		NeedCheckInfo string //是否强制校验身份信息	String	1	N	T：强制校验，F：不强制；示例值：F
+		CertType      string `json:"cert_type"`
+		CertNo        string `json:"cert_no"`         //证件号	String	64	N	示例值：Ly+fnExeyPOTzfOtgRRur77nJB9TAe4PGgK9M ， 需要密文传输，请参考加密解密说明使用汇付RSA公钥加密。 注：need_check_info=T时，该参数才有效
+		MinAge        string `json:"min_age"`         //	允许的最小买家年龄	String	3	N	买家年龄必须大于等于所传数值。示例值：18 注：1. need_check_info = T 时该参数才有效，2. min_age 为整数，必须大于等于 0
+		FixBuyer      string `json:"fix_buyer"`       //是否强制校验付款人身份信息	String	8	N	T：强制校验，F：不强制；示例值：T
+		NeedCheckInfo string `json:"need_check_info"` //是否强制校验身份信息	String	1	N	T：强制校验，F：不强制；示例值：F
 	} `json:"ext_user_info"`
 	Subject           string `json:"subject"`
 	StoreName         string `json:"store_name"`
@@ -220,7 +220,7 @@ type TransFeeAllowanceInfo struct {
 	//补贴手续费金额	String	16	N	金额以元为单位，最少1分，示例值：0.01；
 	//	1.补贴手续费金额小于或等于该笔手续费金额时，按照补贴手续费金额补贴；
 	//	2.补贴手续费金额大于该笔手续费金额时，按照该笔交易实际手续费金额补贴；
-	AllowanceFeeAmt string
+	AllowanceFeeAmt string `json:"allowance_fee_amt"`
 }
 type V3TradePaymentJspayExtendInfos struct {
 	TimeExpire            string                `json:"time_expire"`
@@ -381,15 +381,15 @@ type V3TradePaymentJspayUnfreezeNotifyMessage struct {
 	Sign     string
 }
 type V3TradePaymentJspayUnfreezeNotifyMessageRespData struct {
-	RespCode       string `json:"resp_code,omitempty"`        //业务返回码	String	8	Y	业务返回码
-	RespDesc       string `json:"resp_desc,omitempty"`        //业务返回描述	String	512	Y	业务返回描述
-	HfSeqId        string `json:"hf_seq_id,omitempty"`        //交易的汇付全局流水号	String	40	Y	示例值：00470topo1A221019132207P068ac1362af00000
-	ReqSeqId       string `json:"req_seq_id,omitempty"`       //交易请求流水号	String	128	Y	交易时传入，原样返回；示例值：rQ2021121311173944134649875651
-	ReqDate        string `json:"req_date,omitempty"`         //交易请求日期	String	8	Y	交易时传入，原样返回,格式为yyyyMMdd，示例值：20091225
-	HuifuId        string `json:"huifu_id,omitempty"`         //商户号	String	32	Y	示例值：6666000123120000
-	NotifyType     string `json:"notify_type,omitempty"`      //通知类型	Integer	1	Y	3：资金解冻通知；示例值：3
-	FundFreezeStat string `json:"fund_freeze_stat,omitempty"` //资金冻结状态	String	16	Y	UNFREEZE：解冻；示例值：UNFREEZE
-	UnfreezeAmt    string `json:"unfreeze_amt,omitempty"`     //解冻金额	String	14	Y	单元：元。示例值：1.23
-	FreezeTime     string `json:"freeze_time,omitempty"`      //冻结时间	String	14	Y	格式为yyyyMMddHHMMSS，示例值：20091225091010
-	UnfreezeTime   string `json:"unfreeze_time,omitempty"`    //解冻时间	String	14	Y	格式为yyyyMMddHHMMSS，示例值：20091225091010
+	RespCode       string `json:"resp_code"`        //业务返回码	String	8	Y	业务返回码
+	RespDesc       string `json:"resp_desc"`        //业务返回描述	String	512	Y	业务返回描述
+	HfSeqId        string `json:"hf_seq_id"`        //交易的汇付全局流水号	String	40	Y	示例值：00470topo1A221019132207P068ac1362af00000
+	ReqSeqId       string `json:"req_seq_id"`       //交易请求流水号	String	128	Y	交易时传入，原样返回；示例值：rQ2021121311173944134649875651
+	ReqDate        string `json:"req_date"`         //交易请求日期	String	8	Y	交易时传入，原样返回,格式为yyyyMMdd，示例值：20091225
+	HuifuId        string `json:"huifu_id"`         //商户号	String	32	Y	示例值：6666000123120000
+	NotifyType     string `json:"notify_type"`      //通知类型	Integer	1	Y	3：资金解冻通知；示例值：3
+	FundFreezeStat string `json:"fund_freeze_stat"` //资金冻结状态	String	16	Y	UNFREEZE：解冻；示例值：UNFREEZE
+	UnfreezeAmt    string `json:"unfreeze_amt"`     //解冻金额	String	14	Y	单元：元。示例值：1.23
+	FreezeTime     string `json:"freeze_time"`      //冻结时间	String	14	Y	格式为yyyyMMddHHMMSS，示例值：20091225091010
+	UnfreezeTime   string `json:"unfreeze_time"`    //解冻时间	String	14	Y	格式为yyyyMMddHHMMSS，示例值：20091225091010
 }
