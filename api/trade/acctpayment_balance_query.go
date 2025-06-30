@@ -31,11 +31,11 @@ type V2TradeAcctpaymentBalanceQueryRequest struct {
 }
 type V2TradeAcctpaymentBalanceQueryResponse struct {
 	Data struct {
-		AcctInfoList common.StringObject[AcctInfoList] `json:"acctInfo_list"`
-		ReqDate      string                            `json:"req_date"`
-		ReqSeqId     string                            `json:"req_seq_id"`
-		RespCode     string                            `json:"resp_code"`
-		RespDesc     string                            `json:"resp_desc"`
+		AcctInfoList common.StringObject[[]AcctInfoList] `json:"acctInfo_list"`
+		ReqDate      string                              `json:"req_date"`
+		ReqSeqId     string                              `json:"req_seq_id"`
+		RespCode     string                              `json:"resp_code"`
+		RespDesc     string                              `json:"resp_desc"`
 	} `json:"data"`
 	Sign string `json:"sign"`
 }
