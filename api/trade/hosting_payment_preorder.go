@@ -69,7 +69,6 @@ func (t *Trade) V2TradeHostingPaymentPreorderAli(req V2TradeHostingPaymentPreord
 		PreOrderType: "2",
 		TransAmt:     req.TransAmt,
 		GoodsDesc:    req.GoodsDesc,
-		AppData:      req.AppData.Encode(),
 		ExtendInfos:  common.StructToMapClean(req.ExtendInfos),
 	})
 	if err != nil {
@@ -79,12 +78,11 @@ func (t *Trade) V2TradeHostingPaymentPreorderAli(req V2TradeHostingPaymentPreord
 }
 
 type V2TradeHostingPaymentPreorderAliRequest struct {
-	HuifuId     string                       `json:"huifu_id"`   // 商户号
-	ReqDate     string                       `json:"req_date"`   // 请求日期
-	ReqSeqId    string                       `json:"req_seq_id"` // 请求流水号
-	TransAmt    string                       `json:"trans_amt"`
-	GoodsDesc   string                       `json:"goods_desc"` // 商品描述
-	AppData     common.StringObject[AppData] `json:"app_data"`
+	HuifuId     string `json:"huifu_id"`   // 商户号
+	ReqDate     string `json:"req_date"`   // 请求日期
+	ReqSeqId    string `json:"req_seq_id"` // 请求流水号
+	TransAmt    string `json:"trans_amt"`
+	GoodsDesc   string `json:"goods_desc"` // 商品描述
 	ExtendInfos V2TradeHostingPaymentPreorderExtendInfo
 }
 type V2TradeHostingPaymentPreorderAliResponse struct {
@@ -177,15 +175,15 @@ type MiniappData struct {
 	SeqId       string `json:"seq_id"`
 }
 type AppData struct {
-	AppSchema   string //小程序返回码	String	100	Y	小程序完成支付后需要返回所填写的AppScheme，返回App必填信息。 示例值：https://callback.service.com/xx 注：参数过长容易导致浏览器截取跳转地址，无法唤起收银台，限100字符。 如果地址中有“+/?%#&=”字符需要进行编码操作
-	PrivateInfo string //	私有信息	String	255	N	对应异步通知和主动查询接口中的remark字段；示例值：收取服务费
+	AppSchema   string `json:"app_schema"`   //小程序返回码	String	100	Y	小程序完成支付后需要返回所填写的AppScheme，返回App必填信息。 示例值：https://callback.service.com/xx 注：参数过长容易导致浏览器截取跳转地址，无法唤起收银台，限100字符。 如果地址中有“+/?%#&=”字符需要进行编码操作
+	PrivateInfo string `json:"private_info"` //	私有信息	String	255	N	对应异步通知和主动查询接口中的remark字段；示例值：收取服务费
 }
 type HostingData struct {
-	ProjectTitle string `json:"project_title,omitempty"` //项目标题	String	64	Y	用于账单页面显示；示例值：汇付收银台
-	ProjectId    string `json:"project_id,omitempty"`    //半支付托管项目号	String	32	Y	商户创建的半支付托管项目号；示例值：PROJECTID2022032912492559
-	PrivateInfo  string `json:"private_info,omitempty"`  //商户私有信息	String	255	N	对应异步通知和主动查询接口中的remark字段；示例值：收取服务费
-	CallbackUrl  string `json:"callback_url,omitempty"`  //回调地址	String	512	N	若不填，支付成功后停留在当前页面，填写后跳转回指定地址；示例值：https://paas.huifu.com
-	RequestType  string `json:"request_type,omitempty"`  //请求类型	String	1	C	P:PC页面版，默认：P；M:H5页面版；指定交易类型时必填；示例值：M
+	ProjectTitle string `json:"project_title"` //项目标题	String	64	Y	用于账单页面显示；示例值：汇付收银台
+	ProjectId    string `json:"project_id"`    //半支付托管项目号	String	32	Y	商户创建的半支付托管项目号；示例值：PROJECTID2022032912492559
+	PrivateInfo  string `json:"private_info"`  //商户私有信息	String	255	N	对应异步通知和主动查询接口中的remark字段；示例值：收取服务费
+	CallbackUrl  string `json:"callback_url"`  //回调地址	String	512	N	若不填，支付成功后停留在当前页面，填写后跳转回指定地址；示例值：https://paas.huifu.com
+	RequestType  string `json:"request_type"`  //请求类型	String	1	C	P:PC页面版，默认：P；M:H5页面版；指定交易类型时必填；示例值：M
 }
 
 type BizInfo struct {

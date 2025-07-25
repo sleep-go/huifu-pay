@@ -42,7 +42,26 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
 }
-
+func TestV2TradeHostingPaymentPreorderAli(t *testing.T) {
+	response, raw, err := tr.V2TradeHostingPaymentPreorderAli(trade.V2TradeHostingPaymentPreorderAliRequest{
+		ReqDate:   tool.GetCurrentDate(),
+		ReqSeqId:  tool.GetReqSeqId(),
+		HuifuId:   tr.HuifuPay.BsPay.Msc.SysId,
+		TransAmt:  "0.01",
+		GoodsDesc: "GoodsDesc",
+		ExtendInfos: trade.V2TradeHostingPaymentPreorderExtendInfo{
+			AppData: trade.AppData{
+				AppSchema:   "https://www.baidu.com",
+				PrivateInfo: "",
+			},
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	_ = fileutil.WriteStringToFile("./1.json", raw, false)
+	fmt.Printf("======info=======\n%+v\n", response)
+}
 func TestJSpay(t *testing.T) {
 	response, raw, err := tr.V3TradePaymentJspay(trade.V3TradePaymentJspayRequest{
 		ReqDate:   tool.GetCurrentDate(),
@@ -62,6 +81,7 @@ func TestJSpay(t *testing.T) {
 	_ = fileutil.WriteStringToFile("./1.json", raw, false)
 	fmt.Printf("======info=======\n%+v\n", response)
 }
+
 func TestV3TradePaymentScanpayQuery(t *testing.T) {
 	response, raw, err := tr.V3TradePaymentScanpayQuery(trade.V3TradePaymentScanpayQueryRequest{
 		HuifuId:     tr.HuifuPay.BsPay.Msc.SysId,
