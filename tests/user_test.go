@@ -171,3 +171,18 @@ func TestV2UserBusiModify(t *testing.T) {
 	_ = fileutil.WriteStringToFile("./1.json", raw, false)
 	fmt.Printf("======info=======\n%+v\n", response)
 }
+
+func TestV2SupplementaryPicture(t *testing.T) {
+	response, raw, err := u.V2SupplementaryPicture(user.V2SupplementaryPictureRequest{
+		ReqSeqId: tool.GetReqSeqId(),
+		ReqDate:  tool.GetCurrentDate(),
+		HuifuId:  u.HuifuPay.BsPay.Msc.SysId,
+		FileType: common.FileTypeF01,
+		FileUrl:  "https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	_ = fileutil.WriteStringToFile("./1.json", raw, false)
+	fmt.Printf("======info=======\n%+v\n", response)
+}
