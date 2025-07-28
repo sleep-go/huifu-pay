@@ -48,21 +48,20 @@ type SettleConfig struct {
 	ConstantAmt        string `json:"constant_amt"`         //节假日结算手续费固定金额	String	15	C	settle_cycle为D1时必填。单位元，需保留小数点后两位。不收费请填写0.00； settle_cycle结算周期为D1时，遇节假日按此费率结算 ； 示例值：1.00
 }
 type CardInfo struct {
-	SettleCycle        string `json:"settle_cycle"`         //结算周期	String	2	Y	T1：下个工作日到账；D1：下个自然日到账；示例值：T1
-	MinAmt             string `json:"min_amt"`              //	起结金额	String	14	N	超过该金额后才会结算，单位为元，精确到小数点后两位。 取值范围[0.01,99999999999.99]；示例值：100.00
-	RemainedAmt        string `json:"remained_amt"`         //留存金额	String	14	N	小于等于该金额不会结算，单位为元，精确到小数点后两位。 取值范围[0.01,99999999999.99]；示例值：100.00
-	SettleAbstract     string `json:"settle_abstract"`      //结算摘要	String	128	N	如果需要自定义结算打款备注，请使用此字段传入，默认为空；支持配置格式化摘要内容，参见结算配置示例说明；
-	OutSettleFlag      string `json:"out_settle_flag"`      //手续费外扣标记	String	1	N	1：外扣；2：内扣(为空时默认值)；示例值：1
-	OutSettleHuifuid   string `json:"out_settle_huifuid"`   //结算手续费外扣时的汇付ID	String	18	C	外扣手续费承担方的汇付ID。外扣时必填；示例值：6666000123123123
-	OutSettleAcctType  string `json:"out_settle_acct_type"` //结算手续费外扣时的账户类型	String	2	C	外扣手续费账户类型； 01：基本户（为空时默认值）， 05：充值户；外扣时必填； 示例值：01
-	SettlePattern      string `json:"settle_pattern"`       //结算方式	String	2	N	P0：批次结算（为空时默认值），P2:批次定时结算；示例值：P0
-	SettleBatchNo      string `json:"settle_batch_no"`      //结算批次号	String	32	C	settle_pattern为P0时必填；参见结算批次说明
-	IsPriorityReceipt  string `json:"is_priority_receipt"`  //是否优先到账	String	1	C	settle_pattern为P0时选填， Y：是 N：否（为空默认取值）；示例值：Y
-	SettleTime         string `json:"settle_time"`          //自定义结算处理时间	String	6	C	settle_pattern为P1/P2时必填，注意：00:00到00:30不能指定；格式：HHmmss；示例值：103000
-	FixedRatio         string `json:"fixed_ratio"`          //节假日结算手续费率	String	6	C	settle_cycle为D1时必填。单位%，需保留小数点后两位。取值范围[0.00，100.00]，不收费请填写0.00； settle_cycle=T1时，不生效 ；settle_cycle为D1时，遇节假日按此费率结算 ；示例值：0.05
-	WorkdayFixedRatio  string `json:"workday_fixed_ratio"`  //工作日结算手续费率	String	6	N	单位%，需保留小数点后两位。取值范围[0.00，100.00]，不填默认为0.00；示例值：0.05
-	WorkdayConstantAmt string `json:"workday_constant_amt"` //工作日结算手续费固定金额	String	15	N	单位元，需保留小数点后两位。不填默认为0.00；示例值：1.00
-	ConstantAmt        string `json:"constant_amt"`         //节假日结算手续费固定金额	String	15	C	settle_cycle为D1时必填。单位元，需保留小数点后两位。不收费请填写0.00； settle_cycle结算周期为D1时，遇节假日按此费率结算 ； 示例值：1.00
+	CardType         string `json:"card_type"`          //	卡类型	String	1	Y	0：对公，1：对私法人，2：对私非法人，4：对公非同名；个人商户/用户不支持对公类型，对私非法人类型 示例值：0
+	CardName         string `json:"card_name"`          //card_name	卡户名	String	128	C	持卡人姓名；示例值：张三 当card_type=4时，需要在file_list中额外上传材料；
+	CardNo           string `json:"card_no"`            //卡号	String	32	Y	银行卡号；示例值：0206014170008888
+	ProvId           string `json:"prov_id"`            //	银行所在省	String	6	Y	地区编码内容较多，请下载查询 下载；示例值：100000
+	AreaId           string `json:"area_id"`            //	银行所在市	String	6	Y	地区编码内容较多，请下载查询 下载；示例值：110000
+	BankCode         string `json:"bank_code"`          //	银行号	String	8	C	当card_type=0时必填，对私可以为空点击查看；示例值：01040000
+	BranchCode       string `json:"branch_code"`        //	支行联行号	String	12	C	当card_type=0时必填，点击查看；示例值：103124075619
+	CertType         string `json:"cert_type"`          //	持卡人证件类型	String	2	C	对私必填；参见《自然人证件类型》说明；示例值：00
+	CertNo           string `json:"cert_no"`            //	持卡人证件号码	String	32	C	对私必填； 如:证件类型为身份证, 则填写身份证号码；示例值：320926198412032059
+	CertValidityType string `json:"cert_validity_type"` //	持卡人证件有效期类型	String	1	C	对私必填；1：长期有效；0：非长期有效；示例值：0
+	CertBeginDate    string `json:"cert_begin_date"`    //	持卡人证件有效期（起始）	String	8	C	对私必填；日期格式：yyyyMMdd，示例值：20110112
+	CertEndDate      string `json:"cert_end_date"`      //	持卡人证件有效期（截止）	String	8	C	当cert_validity_type=0时必须填写；日期格式yyyyMMdd，示例值：20110112 当cert_validity_type=1可不填
+	Mp               string `json:"mp"`                 //	银行卡绑定手机号	String	11	N	11位数字，示例值：18611111111
+	IsSettleDefault  string `json:"is_settle_default"`  //	默认结算卡标志	String	1	N	是否为默认结算卡标志；Y:是 N:否(为空默认)；示例值：Y
 }
 type CashConfig struct {
 	SwitchState string `json:"switch_state"` //开通状态	String	1	Y	0:关闭 1:开通；示例值：1
