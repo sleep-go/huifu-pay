@@ -99,12 +99,13 @@ type V2TradeAcctpaymentPayNotifyMessageRespData struct {
 	RespDesc       string         `json:"resp_desc"` //业务返回描述	String	512	Y	业务返回描述
 	ReqDate        string         `json:"req_date"`
 	ReqSeqId       string         `json:"req_seq_id"`
+	HfSeqId        string         `json:"hf_seq_id"`
+	ProductId      string         `json:"product_id"` //产品号	String	64	Y	产品号
 	HuifuId        string         `json:"huifu_id"`
-	ProductId      string         //产品号	String	64	Y	产品号
-	OrdAmt         string         //订单金额	String	14	Y	订单金额
-	TransType      string         //交易类型	String	32	Y	余额支付：ACCT_PAYMENT
-	TransStat      string         //交易状态	String	1	Y	PSF P:处理中；S：成功；F：失败；C：完成。 状态为完成时，需查看分账对象中每个分账的具体状态
-	HycFlag        string         //灵活用工标志	String	1	N	灵活用工标志 Y：灵活用工，N：非灵活用工(默认)
-	HycAttachId    string         //灵活用工代发批次号	String	12	N	灵活用工代发批次号，灵活用工平台为汇优财时返回！
-	AcctSplitBunch AcctSplitBunch //分账对象	Object		Y	分账对象，jsonObject字符串
+	OrdAmt         string         `json:"ord_amt"`          //订单金额	String	14	Y	订单金额
+	TransType      string         `json:"trans_type"`       //交易类型	String	32	Y	余额支付：ACCT_PAYMENT
+	TransStat      string         `json:"trans_stat"`       //交易状态	String	1	Y	PSF P:处理中；S：成功；F：失败；C：完成。 状态为完成时，需查看分账对象中每个分账的具体状态
+	HycFlag        string         `json:"hyc_flag"`         //灵活用工标志	String	1	N	灵活用工标志 Y：灵活用工，N：非灵活用工(默认)
+	HycAttachId    string         `json:"hyc_attach_id"`    //灵活用工代发批次号	String	12	N	灵活用工代发批次号，灵活用工平台为汇优财时返回！
+	AcctSplitBunch AcctSplitBunch `json:"acct_split_bunch"` //分账对象	Object		Y	分账对象，jsonObject字符串
 }
