@@ -33,25 +33,15 @@ func (t *Trade) V3TradePaymentJspay(req V3TradePaymentJspayRequest) (res *V3Trad
 }
 
 type WxData struct {
-	SubAppid  string `json:"sub_appid"`  //子商户应用ID	String	32	N	子商户在微信申请的应用ID，全局唯一。走聚合正扫发货管理的商户，使用的微信公众号/小程序支付 需要填写sub_appid+sub_openid 示例值：wxd678efh567hg6999
-	SubOpenid string `json:"sub_openid"` //子商户用户标识	String	128	N	公众号和小程序场景必填。用户在子商户sub_appid下的唯一标识。下单前需获取到用户的sub_openid，sub_openid获取详见微信文档openid获取。 示例值：oUpF8uMuAJO_M2pxb1Q9zNjWeS6o
-	Attach    string `json:"attach"`     //附加数据	String	127	N	在查询api和支付通知中原样返回，该字段主要用于商户携带订单的自定义数据；
-	Body      string `json:"body"`       //商品描述 商品或支付单简要描述，格式要求：门店品牌名-城市分店名-实际商品名称；
-	Detail    struct {
-		CostPrice   string `json:"cost_price"` //订单原价(元)	String	12	N	1.商户侧一张小票订单可能被分多次支付，订单原价用于记录整张小票的交易金额。 2.当订单原价与支付金额不相等，则不享受优惠。3.该字段主要用于防止同一张小票分多次支付，以享受多次优惠的情况，正常支付订单不必上传此参数。
-		ReceiptId   string `json:"receipt_id"` //商品小票ID
-		GoodsDetail []struct {
-			GoodsId      string `json:"goods_id"`       //商品编码	String	32	N	由半角的大小写字母、数字、中划线、下划线中的一种或几种组成；示例值：6934572310301
-			GoodsName    string `json:"goods_name"`     //商品名称	String	256	N	商品的实际名称；示例值：太龙双黄连口服液
-			Price        string `json:"price"`          //商品单价(元)	String	12	N	如果商户有优惠，需传输商户优惠后的单价； 例如：用户对一笔 100 元的订单使用了商场发的优惠券 100-50，则活动商品的单价应为原单价-50 示例值：43.00
-			Quantity     string `json:"quantity"`       //用户购买的数量；示例值：1
-			WxpayGoodsId string `json:"wxpay_goods_id"` //微信侧商品编码	String	32	N	示例值：12235413214070356458058
-		} `json:"goods_detail"`
-	} `json:"detail"`
-	DeviceInfo string `json:"device_info"` //设备号	String	32	N	终端设备号(商户自定义，如门店编号)，示例值：660035730311000126101 注意：H5与小程序支付填以下值： 苹果APP：1；安卓APP：2；IOS手机网站：3；ANDROID手机网站：4
-	GoodsTag   string `json:"goods_tag"`   //订单优惠标记	String	32	N	代金券或立减优惠功能的参数；示例值：WXG
-	Identity   string `json:"identity"`    //实名支付	String	128	N	实名支付功能，用于公安和保险类商户使用, 包含类型、证件号、姓名三个子域。 示例值："{\"type":\"IDCARD\",\"number\":\"111111111111\",\"name\":\"张三\"}"
-	Receipt    string `json:"receipt"`     //开发票入口开放标识	String	8	N	示例值：Y
+	SubAppid   string   `json:"sub_appid,omitempty"`  //子商户应用ID	String	32	N	子商户在微信申请的应用ID，全局唯一。走聚合正扫发货管理的商户，使用的微信公众号/小程序支付 需要填写sub_appid+sub_openid 示例值：wxd678efh567hg6999
+	SubOpenid  string   `json:"sub_openid,omitempty"` //子商户用户标识	String	128	N	公众号和小程序场景必填。用户在子商户sub_appid下的唯一标识。下单前需获取到用户的sub_openid，sub_openid获取详见微信文档openid获取。 示例值：oUpF8uMuAJO_M2pxb1Q9zNjWeS6o
+	Attach     string   `json:"attach,omitempty"`     //附加数据	String	127	N	在查询api和支付通知中原样返回，该字段主要用于商户携带订单的自定义数据；
+	Body       string   `json:"body,omitempty"`       //商品描述 商品或支付单简要描述，格式要求：门店品牌名-城市分店名-实际商品名称；
+	Detail     WxDetail `json:"detail,omitempty"`
+	DeviceInfo string   `json:"device_info,omitempty"` //设备号	String	32	N	终端设备号(商户自定义，如门店编号)，示例值：660035730311000126101 注意：H5与小程序支付填以下值： 苹果APP：1；安卓APP：2；IOS手机网站：3；ANDROID手机网站：4
+	GoodsTag   string   `json:"goods_tag,omitempty"`   //订单优惠标记	String	32	N	代金券或立减优惠功能的参数；示例值：WXG
+	Identity   string   `json:"identity,omitempty"`    //实名支付	String	128	N	实名支付功能，用于公安和保险类商户使用, 包含类型、证件号、姓名三个子域。 示例值："{\"type":\"IDCARD\",\"number\":\"111111111111\",\"name\":\"张三\"}"
+	Receipt    string   `json:"receipt,omitempty"`     //开发票入口开放标识	String	8	N	示例值：Y
 	SceneInfo  struct {
 		StoreInfo struct {
 			ID       string `json:"id"`
@@ -59,12 +49,25 @@ type WxData struct {
 			AreaCode string `json:"area_code"`
 			Address  string `json:"address"`
 		}
-	} `json:"scene_info"` //场景信息	Object		N	该字段用于上报场景信息，目前支持上报实际门店信息。
-	SpbillCreateIp string `json:"spbill_create_ip"` //终端ip	String	64	N	调用微信支付API的机器IP；示例值：172.28.52.52
-	PromotionFlag  string `json:"promotion_flag"`   //单品优惠标识	String	1	N	Y-是，N-否，默认否；直连模式需要填写；示例值：Y 若使用单品优惠，该字段必填，若该字段为Y，则商品详情【detail】必填
-	ProductId      string `json:"product_id"`       //新增商品ID	String	32	N	直连模式【trade_type】=T_NATIVE支付的时候必填；示例值：
-	LimitPayer     string `json:"limit_payer"`      //指定支付者	String	5	N	上传此参数，可限制用户只有是成年人才能支付，示例值：ADULT
+	} `json:"scene_info,omitempty"` //场景信息	Object		N	该字段用于上报场景信息，目前支持上报实际门店信息。
+	SpbillCreateIp string `json:"spbill_create_ip,omitempty"` //终端ip	String	64	N	调用微信支付API的机器IP；示例值：172.28.52.52
+	PromotionFlag  string `json:"promotion_flag,omitempty"`   //单品优惠标识	String	1	N	Y-是，N-否，默认否；直连模式需要填写；示例值：Y 若使用单品优惠，该字段必填，若该字段为Y，则商品详情【detail】必填
+	ProductId      string `json:"product_id,omitempty"`       //新增商品ID	String	32	N	直连模式【trade_type】=T_NATIVE支付的时候必填；示例值：
+	LimitPayer     string `json:"limit_payer,omitempty"`      //指定支付者	String	5	N	上传此参数，可限制用户只有是成年人才能支付，示例值：ADULT
 }
+type WxDetail struct {
+	CostPrice   string          `json:"cost_price,omitempty"` //订单原价(元)	String	12	N	1.商户侧一张小票订单可能被分多次支付，订单原价用于记录整张小票的交易金额。 2.当订单原价与支付金额不相等，则不享受优惠。3.该字段主要用于防止同一张小票分多次支付，以享受多次优惠的情况，正常支付订单不必上传此参数。
+	ReceiptId   string          `json:"receipt_id,omitempty"` //商品小票ID
+	GoodsDetail []WxGoodsDetail `json:"goods_detail,omitempty"`
+}
+type WxGoodsDetail struct {
+	GoodsId      string `json:"goods_id"`       //商品编码	String	32	N	由半角的大小写字母、数字、中划线、下划线中的一种或几种组成；示例值：6934572310301
+	GoodsName    string `json:"goods_name"`     //商品名称	String	256	N	商品的实际名称；示例值：太龙双黄连口服液
+	Price        string `json:"price"`          //商品单价(元)	String	12	N	如果商户有优惠，需传输商户优惠后的单价； 例如：用户对一笔 100 元的订单使用了商场发的优惠券 100-50，则活动商品的单价应为原单价-50 示例值：43.00
+	Quantity     string `json:"quantity"`       //用户购买的数量；示例值：1
+	WxpayGoodsId string `json:"wxpay_goods_id"` //微信侧商品编码	String	32	N	示例值：12235413214070356458058
+}
+
 type AlipayData struct {
 	AlipayStoreId string `json:"alipay_store_id"` //支付宝的店铺编号	String	32	N	示例值：2016041400077000000003314986
 	BuyerId       string `json:"buyer_id"`        //买家的支付宝唯一用户号	String	28	N	示例值：2088202954065786；
